@@ -45,7 +45,54 @@ void main() {
 ```
 
 ```swift
+import Foundation
+
+_ = readLine()
+let inputList = readLine()!.split(separator: " ").map { Int(String($0))! }
+_ = readLine()
+let checkList = readLine()!.split(separator: " ").map { Int(String($0))! }
+
+var answerList: [Int] = []
+
+
+for checkValue in checkList {
+    if inputList.contains(checkValue) {
+        answerList.append(1)
+    } else {
+        answerList.append(0)
+    }
+}
+
+for answer in answerList {
+    print(answer)
+}
+```
+- 나의 풀이 로직 <br/>
+1. 2,4번째 입력값을 받을 배열과 정답 배열 객체를 만들어준다
+2. 체크리스트를 for-in 반복을 돌려 값하나씩 체크하고 true면 정답배열에 1, false면 정답배열에 0을 담는다.
+3. 정답배열을 for-in문을 돌려 출력한다
+
+<br/>
+
+- 결과: 시간 초과가 뜬다. `contain()`의 시간복잡도가 n이기 때문에 for문안에서 돌아 최종적인 시간복잡도는 O(n^2)이 되어버린다
+- 비교할 배열을 Set으로 답안을 다시 풀어보기 (Set은 비교할 때 시간복잡도가 O(1)이기 때문에)
+```dart
 
 ```
-- 풀이 로직 <br/>
-1. 
+```swift
+import Foundation
+
+let n = Int(readLine()!)!
+
+let array = Set(readLine()!.split(separator: " ").map { Int($0)! })
+
+let m = Int(readLine()!)!
+
+let x_values = readLine()!.split(separator: " ").map { Int($0)! }
+
+for x in x_values {
+    print(array.contains(x) ? 1 : 0)
+}
+
+```
+   
