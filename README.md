@@ -20,15 +20,12 @@ import 'dart:io';
 void main() {
   stdin.readLineSync(); // Discard the first line
 
-  // Parse the second line into a list of integers
   List<int> inputList = stdin.readLineSync()!.split(" ").map((str) => int.parse(str)).toList();
   stdin.readLineSync(); // Discard the third line
 
-  // Parse the fourth line into a list of integers
   List<int> checkList = stdin.readLineSync()!.split(" ").map((str) => int.parse(str)).toList();
   List<int> answerList = []; // This will hold your answers
 
-  // Compare each element of checkList to the elements of inputList
   for (int checkValue in checkList) {
     if (inputList.contains(checkValue)) {
       answerList.add(1); // If the value is in the list, add 1 to the answerList
@@ -75,8 +72,22 @@ for answer in answerList {
 <br/>
 
 - 결과: 시간 초과가 뜬다. `contain()`의 시간복잡도가 n이기 때문에 for문안에서 돌아 최종적인 시간복잡도는 O(n^2)이 되어버린다
-- 비교할 배열을 Set으로 답안을 다시 풀어보기 (Set은 비교할 때 시간복잡도가 O(1)이기 때문에)
+1. 비교할 배열을 Set으로 답안을 다시 풀어보기 (Set은 비교할 때 시간복잡도가 O(1)이기 때문에)
 ```dart
+import 'dart:io';
+
+void main() {
+  Set<int> inputSet = stdin.readLineSync()!.split(' ').map(int.parse).toSet();
+  List<int> checkList = stdin.readLineSync()!.split(' ').map(int.parse).toList();
+
+  for (int checkValue in checkList) {
+    if (inputSet.contains(checkValue)) {
+      print(1); // If the value is in the set, print 1
+    } else {
+      print(0); // If the value is not in the set, print 0
+    }
+  }
+}
 
 ```
 ```swift
@@ -93,6 +104,5 @@ let x_values = readLine()!.split(separator: " ").map { Int($0)! }
 for x in x_values {
     print(array.contains(x) ? 1 : 0)
 }
-
 ```
    
