@@ -75,11 +75,14 @@ for answer in answerList {
 
 - 결과: 시간 초과가 뜬다. `contain()`의 시간복잡도가 n이기 때문에 for문안에서 돌아 최종적인 시간복잡도는 O(n^2)이 되어버린다
 1. 비교할 배열을 Set으로 답안을 다시 풀어보기 (Set은 비교할 때 시간복잡도가 O(1)이기 때문에)
+2. 
 ```dart
 import 'dart:io';
 
 void main() {
+  stdin.readLineSync();
   Set<int> inputSet = stdin.readLineSync()!.split(' ').map(int.parse).toSet();
+  stdin.readLineSync();
   List<int> checkList = stdin.readLineSync()!.split(' ').map(int.parse).toList();
 
   for (int checkValue in checkList) {
@@ -90,7 +93,6 @@ void main() {
     }
   }
 }
-
 ```
 ```swift
 import Foundation
