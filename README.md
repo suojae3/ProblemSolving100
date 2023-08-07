@@ -19,19 +19,19 @@
 import 'dart:io';
 
 void main() {
-  stdin.readLineSync(); // Discard the first line
+  stdin.readLineSync(); 
 
   List<int> inputList = stdin.readLineSync()!.split(" ").map((str) => int.parse(str)).toList();
-  stdin.readLineSync(); // Discard the third line
+  stdin.readLineSync();
 
   List<int> checkList = stdin.readLineSync()!.split(" ").map((str) => int.parse(str)).toList();
-  List<int> answerList = []; // This will hold your answers
+  List<int> answerList = []; 
 
   for (int checkValue in checkList) {
     if (inputList.contains(checkValue)) {
-      answerList.add(1); // If the value is in the list, add 1 to the answerList
+      answerList.add(1); 
     } else {
-      answerList.add(0); // If the value is not in the list, add 0 to the answerList
+      answerList.add(0); 
     }
   }
 
