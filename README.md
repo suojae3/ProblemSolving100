@@ -37,6 +37,26 @@ else:
 ```swift
 import Foundation
 
+// Read the input values
+let input = readLine()!.split(separator: " ").map { Int($0)! }
+let (n, k) = (input[0], input[1])
+
+var cnt = 0
+
+for i in 1...n {
+    if n % i == 0 {
+        cnt += 1
+    }
+    if cnt == k {
+        print(i)
+        exit(0)  // Exit the program once the kth divisor is found
+    }
+}
+
+// If the loop completes without finding the kth divisor, print -1
+print(-1)
+
+
 
 ```
 
