@@ -9,7 +9,7 @@
 
 ### 01. K번째 약수
 
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/1.png" width="400" height="200"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<image src="img/1.png" width="400" height="200"><br/>
 
 ```python
 import sys
