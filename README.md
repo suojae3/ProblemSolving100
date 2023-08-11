@@ -21,6 +21,7 @@
 ▣ 출력예제 3
 
 ```python
+#Python
 import sys
 
 n, k=map(int, input().split())
@@ -35,6 +36,7 @@ else:
     print(-1)
 ```
 ```swift
+//Swift
 import Foundation
 
 // Read the input values
