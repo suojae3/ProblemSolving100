@@ -55,9 +55,6 @@ for i in 1...n {
 
 // If the loop completes without finding the kth divisor, print -1
 print(-1)
-
-
-
 ```
 
 #
