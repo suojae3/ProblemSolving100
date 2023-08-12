@@ -112,7 +112,7 @@ for t in 1...T {
 
 #
 
-### 03. 대표값
+### 03. K번째 큰 수
 
 현수는 1부터 100사이의 자연수가 적힌 N장의 카드를 가지고 있습니다. 같은 숫자의 카드가 여러장 있을 수 있습니다. 현수는 이 중 3장을 뽑아 각 카드에 적힌 수를 합한 값을 기록하려 고 합니다. 3장을 뽑을 수 있는 모든 경우를 기록합니다. 기록한 값 중 K번째로 큰 수를 출력 하는 프로그램을 작성하세요.
 
@@ -172,7 +172,189 @@ for i in 0..<n {
 let sortedRes = res.sorted(by: >)
 print(sortedRes[k-1])
 ```
+#
 
+### (Tip) 최솟값 구하기
+
+```Python
+arr = [5, 3, 7, 9, 2, 5, 2, 6]
+arrMin = float('inf') #최댓값 할당
+for i in range(len(arr)):
+    if arr[i]<arrMin:
+        arrMin=arr[i]
+```
+```Swift
+let arr = [5, 3, 7, 9, 2, 5, 2, 6]
+var arrMin = Int.max  
+
+for i in 0..<arr.count {
+    if arr[i] < arrMin {
+        arrMin = arr[i]
+    }
+}
+print(arrMin)
+
+//하지만 Swift는 최솟값 함수 찾기가 빌트인으로 선언되어있다
+let arr = [5, 3, 7, 9, 2, 5, 2, 6]
+if let arrMin = arr.min() {
+    print(arrMin)
+}
+```
+
+#
+
+### 04. 대표값
+
+N명의 학생의 수학점수가 주어집니다. N명의 학생들의 평균(소수 첫째자리 반올림)을 구하고, N명의 학생 중 평균에 가장 가까운 학생은 몇 번째 학생인지 출력하는 프로그램을 작성하세요. <br/>
+평균과 가장 가까운 점수가 여러 개일 경우 먼저 점수가 높은 학생의 번호를 답으로 하고, 높은 점수를 가진 학생이 여러 명일 경우 그 중 학생번호가 빠른 학생의 번호를 답으로 합니다. <br/>
+
+▣ 입력설명 <br/>
+첫줄에 자연수 N(5<=N<=100)이 주어지고, 두 번째 줄에는 각 학생의 수학점수인 N개의 자연 수가 주어집니다. 학생의 번호는 앞에서부터 1로 시작해서 N까지이다.
+
+▣ 출력설명 <br/>
+첫줄에 평균과 평균에 가장 가까운 학생의 번호를 출력한다. 평균은 소수 첫째 자리에서 반올림합니다.
+
+▣ 입력 예제 <br/>
+10 <br/>
+45 73 66 87 92 67 75 79 75 80 <br/>
+
+▣ 출력 예제 <br/>
+1 7 <br/>
+
+```python
+import sys
+
+n= int(input())
+a=list(map(int, input().split()))
+
+# round()는 반홀림함수 일반적으로 half_up방식 (1.5면 2로 뱉음)
+# 파이썬의 roundsms half_even 방식 택함(1.5면 1로 뱉음) 그래서 +0.5
+ave=round(sum(a)/n+0.5)
+min=21470000000 # 4바이트에서 가장 큰 값
+
+for idx, x in enumerate(a):
+    tmp=abs(x-ave) # 절댓값 함수 abs()
+    if tmp<min:
+        min=tmp
+        score=x
+        res=idx+1
+
+    #답이 두 개 이상인 경우 점수가 높은 사람 우선순위
+    # 점수가 같으면 앞번호 유지
+    elif tmp==min:
+        if x>score:
+            score=x
+            res=idx+1
+
+print(ave, res)
+```
+```Swift
+import Foundation
+
+let n = Int(readLine()!)!
+let a = readLine()!.split(separator: " ").map { Int($0)! }
+
+//Swift도 파이썬과 마찬가지로 half_evne이기 때문에 0.5를 더해준다
+let ave = round(Double(a.reduce(0, +)) / Double(n) + 0.5)
+var minDistance = Double(Int.max)
+var score = -1
+var res = -1
+
+for (idx, x) in a.enumerated() {
+    let tmp = abs(Double(x) - ave)
+    
+    if tmp < minDistance {
+        minDistance = tmp
+        score = x
+        res = idx + 1
+    } else if tmp == minDistance {
+        if x > score {
+            score = x
+            res = idx + 1
+        }
+    }
+}
+
+print(Int(ave), res)
+```
+
+#
+
+### 05. 정다면체
+
+두 개의 정 N면체와 정 M면체의 두 개의 주사위를 던져서 나올 수 있는 눈의 합 중 가장 확 률이 높은 숫자를 출력하는 프로그램을 작성하세요.<br/>
+
+정답이 여러 개일 경우 오름차순으로 출력합니다.<br/>
+
+▣ 입력설명<br/>
+첫 번째 줄에는 자연수 N과 M이 주어집니다. N과 M은 4, 6, 8, 12, 20 중의 하나입니다.<br/>
+
+▣ 출력설명<br/>
+첫 번째 줄에 답을 출력합니다.<br/>
+
+▣ 입력예제<br/>
+4 6<br/>
+
+▣ 출력예제<br/>
+5 6 7<br/>
+
+```python
+import sys
+n, m=map(int, input().split())
+
+# max값을 이후에 지속적으로 넣어주어야하기 때문에 가장 작은 값 할당
+max = -214700000
+
+#눈의 합은 n+m까지 나오겠지만 혹시모르니 +3으로 넉넉하게 잡아주기
+cnt=[0]*(n+m+3)
+
+#1부터 n까지 for문 돌리기
+for i in range(1, n+1):
+    for j in range(1, m+1):
+        cnt[i+j]+=1
+
+# +1을 해야 n+m까지 돔
+for i in range(n+m+1):
+    if cnt[i]>max:
+        max=cnt[i]
+
+for i in range(n+m+1):
+    if cnt[i]==max:
+        print(i, end=' ')
+```
+```swift
+import Foundation
+
+let nm = readLine()!.split(separator: " ").map { Int($0)! }
+let (n, m) = (nm[0], nm[1])
+
+// Initialize an array to count occurrences of each sum
+var cnt = [Int](repeating: 0, count: n + m + 3)
+
+// Set an initial value for the maximum occurrence
+var maxOccurrence = Int.min
+
+// Iterate over all possible dice rolls and count the occurrences of each sum
+for i in 1...n {
+    for j in 1...m {
+        cnt[i + j] += 1
+    }
+}
+
+// Find the maximum occurrence
+for i in 0...(n + m) {
+    if cnt[i] > maxOccurrence {
+        maxOccurrence = cnt[i]
+    }
+}
+
+// Print the sums that occurred the maximum number of times
+for i in 0...(n + m) {
+    if cnt[i] == maxOccurrence {
+        print(i, terminator: " ")
+    }
+}
+```
 
 
 
