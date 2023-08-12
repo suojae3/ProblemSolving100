@@ -98,7 +98,7 @@ let T = Int(readLine()!)!
 
 for t in 1...T {
     let inputs = readLine()!.split(separator: " ").map { Int($0)! }
-    let (n, s, e, k) = (inputs[0], inputs[1], inputs[2], inputs[3])
+    var (n, s, e, k) = (inputs[0], inputs[1], inputs[2], inputs[3])
     
     var a = readLine()!.split(separator: " ").map { Int($0)! }
     a = Array(a[s-1..<e])
