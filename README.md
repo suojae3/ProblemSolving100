@@ -355,7 +355,81 @@ for i in 0...(n + m) {
     }
 }
 ```
+#
 
+### 06. 자릿수의 합
+
+N개의 자연수가 입력되면 각 자연수의 자릿수의 합을 구하고, 그 합이 최대인 자연수를 출력 하는 프로그램을 작성하세요.<br/>
+각 자연수의 자릿수의 합을 구하는 함수를 def digit_sum(x)를 꼭 작성해서 프로그래밍 하세요. <br/>
+
+▣ 입력설명<br/>
+첫 줄에 자연수의 개수 N(3<=N<=100)이 주어지고, 그 다음 줄에 N개의 자연수가 주어진다. 각 자연수의 크기는 10,000,000를 넘지 않는다.<br/>
+
+▣ 출력설명<br/>
+자릿수의 합이 최대인 자연수를 출력한다. 자릿수의 합이 같을 경우 입력순으로 먼저인 숫자 를 출력합니다.<br/>
+
+▣ 입력예제<br/> 
+3<br/>
+125 15232 97<br/>
+
+▣ 출력예제<br/> 
+97<br/>
+
+```python
+import sys
+n=int(input())
+a=list(map(int, input().split()))
+max=-214700000
+
+def digit_sum(x):
+    sum=0
+
+    # x 각 자릿수 합을 sum에 누적하기
+    while x>0:
+        sum+=x%10
+        x=x//10
+
+for x in a:
+    tot=digit_sums(x)
+    if tot>max:
+        max=tot
+        res=x
+print(res)
+
+
+```
+```Swift
+import Foundation
+
+let n = Int(readLine()!)!
+let a = readLine()!.split(separator: " ").map { Int($0)! }
+
+var maxSum = Int.min
+var res = 0
+
+// Function to calculate the sum of digits of a number
+func digitSum(_ x: Int) -> Int {
+    var sum = 0
+    var num = x
+    
+    while num > 0 {
+        sum += num % 10
+        num /= 10
+    }
+    return sum
+}
+
+// Iterate over all numbers to find the one with the maximum digit sum
+for x in a {
+    let tot = digitSum(x)
+    if tot > maxSum {
+        maxSum = tot
+        res = x
+    }
+}
+
+print(res)
+```
 
 
 
