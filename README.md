@@ -407,7 +407,6 @@ let a = readLine()!.split(separator: " ").map { Int($0)! }
 var maxSum = Int.min
 var res = 0
 
-// Function to calculate the sum of digits of a number
 func digitSum(_ x: Int) -> Int {
     var sum = 0
     var num = x
@@ -419,7 +418,6 @@ func digitSum(_ x: Int) -> Int {
     return sum
 }
 
-// Iterate over all numbers to find the one with the maximum digit sum
 for x in a {
     let tot = digitSum(x)
     if tot > maxSum {
