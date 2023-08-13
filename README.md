@@ -153,6 +153,7 @@ print(res[k-1])
 import Foundation
 
 // Read input
+let t = Int(readline()!)!
 let nk = readLine()!.split(separator: " ").map { Int($0)! }
 let n = nk[0]
 let k = nk[1]
