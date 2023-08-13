@@ -669,7 +669,7 @@ OX 문제는 맞거나 틀린 두 경우의 답을 가지는 문제를 말한다
 틀린 경 우에는 0으로 표시하였을 때, 점수 계산은 아래 표와 같이 계산되어, <br/>
 총 점수는 1+1+2+3+1+2=10 점이다.<br/>
 
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/1.png" width="400" height="200"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/001.png" width="400" height="200"><br/>
 
 시험문제의 채점 결과가 주어졌을 때, 총 점수를 계산하는 프로그램을 작성하시오.<br/>
 
