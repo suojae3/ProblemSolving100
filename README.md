@@ -1341,6 +1341,8 @@ for i in range(n):
 print(res)
 ```
 ```swift
+import Foundation
+
 let n = Int(readLine()!)!
 var a: [[Int]] = []
 
