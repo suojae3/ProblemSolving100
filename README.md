@@ -1419,6 +1419,8 @@ print(res)
 ▣ 출력예제 <br/>
 10 <br/>
 
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/10.png" width="400" height="200"><br/>
+
 ```python
 import sys
 dx=[-1, 0, 1, 0]
@@ -1441,6 +1443,7 @@ print(cnt)
 ```swift
 import Foundation
 
+//상하좌우 탐색
 let dx = [-1, 0, 1, 0]
 let dy = [0, 1, 0, -1]
 
