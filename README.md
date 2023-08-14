@@ -1128,6 +1128,8 @@ N*N의 격자판이 주어지면 각 행의 합, 각 열의 합, 두 대각선�
 ▣ 출력예제 <br/>
 155<br/>
 
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/7.png" width="400" height="200"><br/>
+
 ```python
 import sys
 sys.stdin = open("input.txt", 'r')
