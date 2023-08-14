@@ -1048,7 +1048,7 @@ N개의 수로 된 수열 A[1], A[2], ..., A[N] 이 있다. <br/>
 
 ```python
 import sys
-sys.stdin = open("input.txt", 'r')
+
 n, m=map(int, input().split())
 a=list(map(int, input().split()))
 lt=0
@@ -1103,6 +1103,91 @@ while true {
 print(cnt)
 ```
 
+#
 
+### 16. 격자판 최대합
 
+N*N의 격자판이 주어지면 각 행의 합, 각 열의 합, 두 대각선의 합 중 가 장 큰 합을 출력합니다.<br/>
+
+▣ 입력설명<br/>
+첫 줄에 자연수 N이 주어진다.(1<=N<=50) <br/>
+두 번째 줄부터 N줄에 걸쳐 각 줄에 N개의 자연수가 주어진다.<br/>
+각 자연수는 100을 넘지 않는다. <br/>
+
+▣ 출력설명 <br/>
+최대합을 출력합니다. <br/>
+
+▣ 입력예제<br/>
+5 <br/>
+10 13 10 12 15 <br/>
+12 39 30 23 11 <br/>
+11 25 50 53 15 <br/>
+19 27 29 37 27 <br/>
+19 13 30 13 19 <br/>
+
+▣ 출력예제 <br/>
+155<br/>
+
+```python
+import sys
+sys.stdin = open("input.txt", 'r')
+n=int(input())
+a=[list(map(int, input().split())) for _ in range(n)]
+largest=-2147000000
+for i in range(n):
+    sum1=sum2=0
+    for j in range(n):
+        sum1+=a[i][j]
+        sum2+=a[j][i]
+    if sum1>largest:
+        largest=sum1
+    if sum2>largest:
+        largest=sum2
+sum1=sum2=0
+for i in range(n):
+    sum1+=a[i][i]
+    sum2+=a[i][n-i-1]
+if sum1>largest:
+    largest=sum1
+if sum2>largest:
+    largest=sum2
+print(largest)
+```
+```Swift
+import Foundation
+
+let n = Int(readLine()!)!
+var a: [[Int]] = []
+
+for _ in 0..<n {
+    let row = readLine()!.split(separator: " ").map { Int($0)! }
+    a.append(row)
+}
+
+var largest = Int.min
+
+for i in 0..<n {
+    var sum1 = 0
+    var sum2 = 0
+    for j in 0..<n {
+        sum1 += a[i][j]
+        sum2 += a[j][i]
+    }
+    largest = max(largest, sum1, sum2)
+}
+
+var sum1 = 0
+var sum2 = 0
+for i in 0..<n {
+    sum1 += a[i][i]
+    sum2 += a[i][n-i-1]
+}
+
+largest = max(largest, sum1, sum2)
+print(largest)
+```
+
+#
+
+### 17. 
 
