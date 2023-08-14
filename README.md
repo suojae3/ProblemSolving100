@@ -1272,4 +1272,193 @@ print(res)
 
 #
 
-### 18. 
+### 18. 곳감 (모래시계)
+
+현수는 곳감을 만들기 위해 감을 깍아 마당에 말리고 있습니다. 현수의 마당은 N*N 격자판으 로 이루어져 있으며,  <br/>
+현수는 각 격자단위로 말리는 감의 수를 정합니다.<br/>
+그런데 해의 위치에 따라 특정위치의 감은 잘 마르지 않습니다. 그래서 현수는 격자의 행을 기준으로 왼쪽,  <br/>
+또는 오른쪽으로 회전시켜 위치를 변경해 모든 감이 잘 마르게 합니다.<br/>
+만약 회전명령 정보가 2 0 3이면 2번째 행을 왼쪽으로 3만큼 아래 그림처럼 회전시키는 명령 입니다.<br/>
+
+첫 번째 수는 행번호, 두 번째 수는 방향인데 0이면 왼쪽, 1이면 오른쪽이고, 세 번째 수는 회 전하는 격자의 수입니다.<br/>
+M개의 회전명령을 실행하고 난 후 아래와 같이 마당의 모래시계 모양의 영역에는 <br/>
+감이 총 몇 개가 있는지 출력하는 프로그램을 작성하세요.<br/>
+
+▣ 입력설명 <br/>
+첫 줄에 자연수 N(3<=N<=20) 이 주어며, N은 홀수입니다.<br/>
+두 번째 줄부터 N줄에 걸쳐 각 줄에 N개의 자연수가 주어진다.<br/>
+이 자연수는 각 격자안에 있는 감의 개수이며, 각 격자안의 감의 개수는 100을 넘지 않는다. <br/>
+그 다음 줄에 회전명령의 개수인 M(1<=M<=10)이 주어지고, <br/>
+그 다음 줄부터 M개의 회전명령 정보가 M줄에 걸쳐 주어집니다. <br/>
+
+▣ 출력설명 <br/>
+총 감의 개수를 출력합니다. <br/>
+
+▣ 입력예제 <br/>
+5 <br/>
+10 13 10 12 15 <br/>
+12 39 30 23 11 <br/>
+11 25 50 53 15 <br/>
+19 27 29 37 27 <br/>
+19 13 30 13 19 <br/>
+3 <br/>
+2 0 3 <br/>
+5 1 2 <br/>
+3 1 4 <br/>
+
+▣ 출력예제 <br/>
+362 <br/>
+
+```python
+import sys
+n=int(input())
+a=[list(map(int, input().split())) for _ in range(n)]
+m=int(input())
+for i in range(m):
+    h, t, k=map(int, input().split())
+    if(t==0):
+        for _ in range(k):
+            a[h-1].append(a[h-1].pop(0))
+    else:
+        for _ in range(k):
+            a[h-1].insert(0, a[h-1].pop())
+
+res=0
+s=0
+e=n-1
+for i in range(n):
+    for j in range(s, e+1):
+        res+=a[i][j]
+    if i<n//2:
+        s+=1
+        e-=1
+    else:
+        s-=1
+        e+=1
+print(res)
+```
+```swift
+let n = Int(readLine()!)!
+var a: [[Int]] = []
+
+for _ in 0..<n {
+    let row = readLine()!.split(separator: " ").map { Int($0)! }
+    a.append(row)
+}
+
+let m = Int(readLine()!)!
+
+for _ in 0..<m {
+    let commands = readLine()!.split(separator: " ").map { Int($0)! }
+    let (h, t, k) = (commands[0], commands[1], commands[2])
+    
+    if t == 0 {
+        for _ in 0..<k {
+            let first = a[h-1].removeFirst()
+            a[h-1].append(first)
+        }
+    } else {
+        for _ in 0..<k {
+            let last = a[h-1].removeLast()
+            a[h-1].insert(last, at: 0)
+        }
+    }
+}
+
+var res = 0
+var s = 0
+var e = n - 1
+
+for i in 0..<n {
+    for j in s...e {
+        res += a[i][j]
+    }
+    if i < n / 2 {
+        s += 1
+        e -= 1
+    } else {
+        s -= 1
+        e += 1
+    }
+}
+
+print(res)
+```
+
+#
+
+### 19. 봉우리 
+
+지도 정보가 N*N 격자판에 주어집니다. 각 격자에는 그 지역의 높이가 쓰여있습니다. <br/>
+각 격자 판의 숫자 중 자신의 상하좌우 숫자보다 큰 숫자는 봉우리 지역입니다. <br/>
+봉우리 지역이 몇 개 있는 지 알아내는 프로그램을 작성하세요. <br/>
+격자의 가장자리는 0으로 초기화 되었다고 가정한다. <br/>
+만약 N=5 이고, 격자판의 숫자가 다음과 같다면 봉우리의 개수는 10개입니다. <br/>
+
+▣ 입력설명 <br/>
+첫 줄에 자연수 N이 주어진다.(1<=N<=50) <br/>
+두 번째 줄부터 N줄에 걸쳐 각 줄에 N개의 자연수가 주어진다. <br/>
+각 자연수는 100을 넘지 않는다. <br/>
+
+▣ 출력설명 <br/>
+봉우리의 개수를 출력하세요. <br/>
+
+▣ 입력예제 <br/>
+5 <br/>
+5 3 7 2 3 <br/>
+3 7 1 6 1 <br/>
+7 2 5 3 4 <br/>
+4 3 6 4 1 <br/>
+8 7 3 5 2<br/>
+
+▣ 출력예제 <br/>
+10 <br/>
+
+```python
+import sys
+dx=[-1, 0, 1, 0]
+dy=[0, 1, 0, -1]
+n=int(input())
+a=[list(map(int, input().split())) for _ in range(n)]
+a.insert(0, [0]*n)
+a.append([0]*n)
+for x in a:
+    x.insert(0, 0)
+    x.append(0)
+
+cnt=0
+for i in range(1, n+1):
+    for j in range(1, n+1):
+        if all(a[i][j]>a[i+dx[k]][j+dy[k]] for k in range(4)):
+            cnt+=1
+print(cnt)
+```
+```swift
+import Foundation
+
+let dx = [-1, 0, 1, 0]
+let dy = [0, 1, 0, -1]
+
+let n = Int(readLine()!)!
+var a: [[Int]] = []
+
+// Read the input and pad with zeros on all sides
+for _ in 0..<n {
+    let row = [0] + readLine()!.split(separator: " ").map { Int($0)! } + [0]
+    a.append(row)
+}
+a.insert([Int](repeating: 0, count: n + 2), at: 0)
+a.append([Int](repeating: 0, count: n + 2))
+
+var cnt = 0
+
+for i in 1...n {
+    for j in 1...n {
+        if (0..<4).allSatisfy({ a[i][j] > a[i + dx[$0]][j + dy[$0]] }) {
+            cnt += 1
+        }
+    }
+}
+
+print(cnt)
+```
