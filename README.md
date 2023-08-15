@@ -1470,3 +1470,67 @@ for i in 1...n {
 
 print(cnt)
 ```
+
+#
+
+### 20. 스도쿠 검사
+
+스도쿠는 매우 간단한 숫자 퍼즐이다. 9×9 크기의 보드가 있을 때, <br/>
+각 행과 각 열, 그리고 9 개의 3×3 크기의 보드에 1부터 9까지의 숫자가 중복 없이 나타나도록 보드를 채우면 된다. <br/>
+예를 들어 다음을 보자.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/11.png" width="400" height="400"><br/>
+
+위 그림은 스도쿠를 정확하게 푼 경우이다. 각 행에 1부터 9까지의 숫자가 중복 없이 나오 고,  <br/>
+각 열에 1부터 9까지의 숫자가 중복 없이 나오고,  <br/>
+각 3×3짜리 사각형(9개이며, 위에서 색 깔로 표시되었다)에 1부터 9까지의 숫자가 중복 없이 나오기 때문이다.  <br/>
+완성된 9×9 크기의 수도쿠가 주어지면 정확하게 풀었으면 “YES", 잘 못 풀었으면 ”NO"를 출 력하는 프로그램을 작성하세요.  <br/>
+
+▣ 입력설명  <br/>
+첫 번째 줄에 완성된 9×9 스도쿠가 주어집니다. <br/>
+
+▣ 출력설명  <br/>
+첫째 줄에 “YES" 또는 ”NO"를 출력하세요.  <br/>
+
+▣ 풀이로직
+- 행 / 열 / 3x3 박스 (그룹탐색)의 중복 숫자를 체크한다
+- `a[i][j]`를 ch 배열에 넣어서 중복체크한다
+- 그룹탐색은 4중 for 문을 돌리게 된다
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/12.png" width="400" height="400"><br/>
+
+```python
+import sys
+sys.stdin=open("input.txt", "r")
+def check(a):
+    for i in range(9):
+        ch1=[0]*10
+        ch2=[0]*10
+        for j in range(9):
+            ch1[a[i][j]]=1
+            ch2[a[j][i]]=1
+        if sum(ch1)!=9 or sum(ch2)!=9:
+            return False
+    for i in range(3):
+        for j in range(3):
+            ch3=[0]*10
+            for k in range(3):
+                for s in range(3):
+                    ch3[a[i*3+k][j*3+s]]=1
+            if sum(ch3)!=9:
+                return False
+    return True
+
+a=[list(map(int, input().split())) for _ in range(9)]
+if check(a):
+    print("YES")
+else:
+    print("NO")
+```
+```Swift
+
+```
+
+
+
+
