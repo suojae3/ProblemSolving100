@@ -913,6 +913,8 @@ for x in a:
 print(a)
 ```
 ```Swift
+import Foundation
+
 var cards = Array(1...20)  
 
 for _ in 0..<10 {
