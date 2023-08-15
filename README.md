@@ -1270,7 +1270,6 @@ for i in 0..<n {
 
 print(res)
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/9.png" width="400" height="200"><br/>
 
 #
 
@@ -1311,7 +1310,7 @@ M개의 회전명령을 실행하고 난 후 아래와 같이 마당의 모래�
 ▣ 출력예제 <br/>
 362 <br/>
 
-
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/9.png" width="400" height="200"><br/>
 
 ```python
 import sys
