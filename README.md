@@ -913,7 +913,7 @@ for x in a:
 print(a)
 ```
 ```Swift
-var cards = Array(0...20)  
+var cards = Array(1...20)  
 
 for _ in 0..<10 {
     let range = readLine()!.split(separator: " ").map { Int($0)! }
@@ -926,7 +926,6 @@ for _ in 0..<10 {
     }
 }
 
-cards.remove(at: 0) 
 for card in cards {
     print(card, terminator: " ")
 }
