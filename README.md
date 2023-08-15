@@ -1492,7 +1492,21 @@ print(cnt)
 ▣ 출력설명  <br/>
 첫째 줄에 “YES" 또는 ”NO"를 출력하세요.  <br/>
 
-▣ 풀이로직
+▣ 입력예제  <br/>
+1 4 3 6 2 8 5 7 9  <br/>
+5 7 2 1 3 9 4 6 8  <br/>
+9 8 6 7 5 4 2 3 1  <br/>
+3 9 1 5 4 2 7 8 6  <br/>
+4 6 8 9 1 7 3 5 2  <br/>
+7 2 5 8 6 3 9 1 4  <br/>
+2 3 7 4 8 1 6 9 5  <br/>
+6 1 9 2 7 5 8 4 3  <br/>
+8 5 4 3 9 6 1 2 7  <br/>
+
+▣ 출력예제  <br/>
+YES  <br/>
+
+▣ 풀이로직 
 - 행 / 열 / 3x3 박스 (그룹탐색)의 중복 숫자를 체크한다
 - `a[i][j]`를 ch 배열에 넣어서 중복체크한다
 - 그룹탐색은 4중 for 문을 돌리게 된다
@@ -1503,7 +1517,10 @@ print(cnt)
 import sys
 sys.stdin=open("input.txt", "r")
 def check(a):
+
     for i in range(9):
+
+        # 행 / 열 체크
         ch1=[0]*10
         ch2=[0]*10
         for j in range(9):
@@ -1511,6 +1528,8 @@ def check(a):
             ch2[a[j][i]]=1
         if sum(ch1)!=9 or sum(ch2)!=9:
             return False
+
+    # 그룹탐색은 4중 for문으로 체크
     for i in range(3):
         for j in range(3):
             ch3=[0]*10
@@ -1521,15 +1540,62 @@ def check(a):
                 return False
     return True
 
-a=[list(map(int, input().split())) for _ in range(9)]
-if check(a):
+b=[list(map(int, input().split())) for _ in range(9)]
+if check(b):
     print("YES")
 else:
     print("NO")
 ```
 ```Swift
+import Foundation
 
+func check(_ a: [[Int]]) -> Bool {
+    
+    for i in 0..<9 {
+        var ch1 = Array(repeating: 0, count: 10)
+        var ch2 = Array(repeating: 0, count: 10)
+        for j in 0..<9 {
+            ch1[a[i][j]] = 1
+            ch2[a[j][i]] = 1
+        }
+        if ch1.reduce(0, +) != 9 || ch2.reduce(0, +) != 9 {
+            return false
+        }
+    }
+
+    for i in 0..<3 {
+        for j in 0..<3 {
+            var ch3 = Array(repeating: 0, count: 10)
+            for k in 0..<3 {
+                for s in 0..<3 {
+                    ch3[a[i*3 + k][j*3 + s]] = 1
+                }
+            }
+            if ch3.reduce(0, +) != 9 {
+                return false
+            }
+        }
+    }
+    return true
+}
+
+var board: [[Int]] = []
+for _ in 0..<9 {
+    if let line = readLine()?.split(separator: " ").map({ Int($0)! }) {
+        board.append(line)
+    }
+}
+
+if check(board) {
+    print("YES")
+} else {
+    print("NO")
+}
 ```
+
+#
+
+### 21. 격자판 회문수
 
 
 
