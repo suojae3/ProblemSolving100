@@ -1596,9 +1596,36 @@ if check(board) {
 #
 
 ### 21. 격자판 회문수
-1부터 9까지의 자연수로 채워진 7*7 격자판이 주어지면 격자판 위에서 가로방향 또는 세로방향으로 길이 5자리 회문수가 몇 개 있는지 구하는 프로그램을 작성하세요. 회문수란 121과 같이 앞에서부터 읽으나 뒤에서부터 읽으나 같은 수를 말합니다.
+1부터 9까지의 자연수로 채워진 7*7 격자판이 주어지면 격자판 위에서 가로방향 또는 세로방향으로 <br/>
+길이 5자리 회문수가 몇 개 있는지 구하는 프로그램을 작성하세요. <br/>
+회문수란 121과 같이 앞에서부터 읽으나 뒤에서부터 읽으나 같은 수를 말합니다.<br/>
 
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/12.png" width="400" height="400"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/13.png" width="400" height="400"><br/>
+
+빨간색처럼 구부러진 경우(87178)는 회문수로 간주하지 않습니다.<br/>
+
+▣ 입력설명<br/>
+1부터 9까지의 자연수로 채워진 7*7격자판이 주어집니다.<br/>
+
+▣ 출력설명<br/>
+5자리 회문수의 개수를 출력합니다<br/>
+
+▣ 입력예제<br/>
+2 4 1 5 3 2 6 <br/>
+3 5 1 8 7 1 7 <br/>
+8 3 2 7 1 3 8 <br/>
+6 1 2 3 2 1 1 <br/>
+1 3 1 3 5 3 2 <br/>
+1 1 2 5 6 5 2 <br/>
+1 2 2 2 2 1 5 <br/>
+
+▣ 출력예제<br/>
+3 <br/>
+
+▣ 풀이로직
+- 5개를 보면 되기 때문에 0,1,2까지만 돌면 되는 부분
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/14.png" width="400" height="400"><br/>
 
 
 ```python
@@ -1619,15 +1646,98 @@ for i in range(3):
         
 print(cnt)
 ```
+```swift
+import Foundation
 
+let board: [[Int]] = (0..<7).map { _ in readLine()!.split(separator: " ").map { Int($0)! } }
+var cnt = 0
 
+for i in 0..<3 {
+    for j in 0..<7 {
+        let tmp = Array(board[j][i..<i+5])
+        if tmp == tmp.reversed() {
+            cnt += 1
+        }
 
+        //5개 이기 때문에 양쪽 두 개만 비교하면 된다!
+        for k in 0..<2 {
+            if board[i+k][j] != board[i+5-k-1][j] {
+                break
+            } else {
+                cnt += 1
+            }
+        }
+    }
+}
 
+print(cnt)
+```
 
+#
 
+### 22. 이분검색
 
+임의의 N개의 숫자가 입력으로 주어집니다. <br/>
+N개의 수를 오름차순으로 정렬한 다음 N개의 수 중 한 개의 수인 M이 주어지면 이분검색으로 M이 정렬된 상태에서 <br/>
+몇 번째에 있는지 구하는 프로그램을 작성하세요. 단 중복값은 존재하지 않습니다. <br/>
 
+▣ 입력설명 <br/>
+첫 줄에 한 줄에 자연수 N(3<=N<=1,000,000)과 M이 주어집니다.<br/>
+두 번째 줄에 N개의 수가 공백을 사이에 두고 주어집니다.<br/>
 
+▣ 출력설명 <br/>
+첫 줄에 정렬 후 M의 값의 위치 번호를 출력한다. <br/>
+
+▣ 입력예제 <br/>
+8 32 <br/>
+23 87 65 12 57 32 99 81 <br/>
+
+▣ 출력예제 <br/>
+3
+
+```python
+import sys
+sys.stdin=open("input.txt", "r")
+n, m=map(int, input().split())
+a=list(map(int, input().split()))
+a.sort()
+lt=0
+rt=n-1
+while lt<=rt:
+    mid=(lt+rt)//2
+    if a[mid]==m:
+        print(mid+1)
+        break
+    elif a[mid]>m:
+        rt=mid-1
+    else:
+        lt=mid+1
+```
+```Swift
+import Foundation
+
+let inputs = readLine()!.split(separator: " ").map { Int($0)! }
+let n = inputs[0]
+let m = inputs[1]
+
+var a = readLine()!.split(separator: " ").map { Int($0)! }
+a.sort()
+
+var lt = 0
+var rt = n - 1
+
+while lt <= rt {
+    let mid = (lt + rt) // 2
+    if a[mid] == m {
+        print(mid + 1)
+        break
+    } else if a[mid] > m {
+        rt = mid - 1
+    } else {
+        lt = mid + 1
+    }
+}
+```
 
 
 
