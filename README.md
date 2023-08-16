@@ -1622,8 +1622,8 @@ if check(board) {
 ▣ 출력예제<br/>
 3 <br/>
 
-▣ 풀이로직
-- 5개를 보면 되기 때문에 0,1,2까지만 돌면 되는 부분
+▣ 풀이로직 <br/>
+5개를 보면 되기 때문에 0,1,2까지만 돌면 되는 부분 <br/>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="image/14.png" width="400" height="400"><br/>
 
@@ -1739,6 +1739,113 @@ while lt <= rt {
 }
 ```
 
+#
+
+### 23. 랜선 자르기 (결정 알고리즘)
+
+엘리트 학원은 자체적으로 K개의 랜선을 가지고 있다. <br/>
+그러나 K개의 랜선은 길이가 제각각이다. 선생님은 랜선을 모두 N개의 같은 길이의 랜선으로 만들고 싶었기 때문에 <br/>
+K개의 랜선을 잘라서 만들어야 한다. <br/>
+예를 들어 300cm 짜리 랜선에서 140cm 짜리 랜선을 두 개 잘라내면 20cm 은 버려야 한다. <br/>
+(이미 자른 랜선은 붙일 수 없다.) <br/>
+편의를 위해 랜선을 자를때 손실되는 길이는 없다고 가정하며, <br/>
+기존의 K개의 랜선으로 N개의 랜선을 만들 수 없는 경우는 없다고 가정하자. <br/>
+그리고 자를 때는 항상 센티미터 단위로 정수 길이만큼 자른다고 가정하자. <br/>
+N개보다 많이 만드는 것도 N개를 만드는 것에 포함된다. <br/>
+이때 만들 수 있는 최대 랜선의 길이를 구하는 프로그램을 작성하시오.<br/>
+
+▣ 입력설명 <br/>
+첫째 줄에는 엘리트학원이 이미 가지고 있는 랜선의 개수 K, 그리고 필요한 랜선의 개수 N이 입력된다. <br/>
+K는 1이상 10,000이하의 정수이고, N은 1이상 1,000,000이하의 정수이다. 그리고 항상 K ≦ N 이다. <br/>
+그 후 K줄에 걸쳐 이미 가지고 있는 각 랜선의 길이가 센티미터 단위의 2^31-1이하의 자연수로 주어진다. <br/>
+
+▣ 출력설명 <br/>
+첫째 줄에 N개를 만들 수 있는 랜선의 최대 길이를 센티미터 단위의 정수로 출력한다. <br/>
+
+▣ 입력예제 <br/>
+4 11  <br/>
+802 <br/>
+743 <br/>
+457 <br/>
+539 <br/>
+
+▣ 출력예제 <br/>
+200 <br/>
+
+▣ 풀이로직 <br/>
+결정알고리즘의 특징은 답이 몇부터 몇사이까지 범위가 있다는 것을 알 수 있다.<br/>
+범위를 알기때문에 중앙값을 설정할 수 있고 이분탐색이 가능해짐 <br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/15.png" width="400" height="400"><br/>
+
+```python
+import sys
+sys.stdin=open("input.txt", "r")
+def Count(len):
+    cnt=0
+    for x in Line:
+        cnt+=(x//len)
+    return cnt
+
+k, n=map(int, input().split())
+Line=[]
+res=0
+largest=0
+for i in range(k):
+    tmp=int(input())
+    Line.append(tmp)
+    largest=max(largest, tmp)
+lt=1
+rt=largest
+while lt<=rt:
+    mid=(lt+rt)//2
+    if Count(mid)>=n:
+        res=mid
+        lt=mid+1
+    else:
+        rt=mid-1
+print(res)
+```
+```swift
+import Foundation
+
+func count(_ len: Int, _ lines: [Int]) -> Int {
+    var cnt = 0
+    for line in lines {
+        cnt += line / len
+    }
+    return cnt
+}
+
+let inputs = readLine()!.split(separator: " ").map { Int($0)! }
+let k = inputs[0]
+let n = inputs[1]
+
+var lines: [Int] = []
+var largest = 0
+
+for _ in 0..<k {
+    let length = Int(readLine()!)!
+    lines.append(length)
+    largest = max(largest, length)
+}
+
+var lt = 1
+var rt = largest
+var res = 0
+
+while lt <= rt {
+    let mid = (lt + rt) / 2
+    if count(mid, lines) >= n {
+        res = mid
+        lt = mid + 1
+    } else {
+        rt = mid - 1
+    }
+}
+
+print(res)
+```
 
 
 
