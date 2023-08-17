@@ -379,7 +379,7 @@ N개의 자연수가 입력되면 각 자연수의 자릿수의 합을 구하고
 ```python
 import sys
 n=int(input())
-a=list(map(int, input().split()))
+a=list( map(int, input().split()) )
 max=-214700000
 
 def digit_sum(x):
