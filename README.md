@@ -1727,7 +1727,7 @@ var lt = 0
 var rt = n - 1
 
 while lt <= rt {
-    let mid = (lt + rt) // 2
+    let mid = (lt + rt) / 2
     if a[mid] == m {
         print(mid + 1)
         break
