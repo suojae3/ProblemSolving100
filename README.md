@@ -2075,11 +2075,25 @@ print(res)
 import Foundation
 
 let n = Int(readLine()!)!
-var meetings = (0..<n).map { _ in readLine()!.split(separator: " ").map { Int($0)! } }
-    .sorted { ($0[1], $0[0]) < ($1[1], $1[0]) }
+var meetings: [(Int, Int)] = []
 
-var (endTime, count) = (0, 0)
-meetings.forEach { if $0[0] >= endTime { endTime = $0[1]; count += 1 } }
+for _ in 0..<n {
+    let input = readLine()!.split(separator: " ").map { Int($0)! }
+    meetings.append((input[0], input[1]))
+}
+
+meetings.sort { $0.1 == $1.1 ? $0.0 < $1.0 : $0.1 < $1.1 }
+
+var endTime = 0
+var count = 0
+
+for meeting in meetings {
+    if meeting.0 >= endTime {
+        endTime = meeting.1
+        count += 1
+    }
+}
+
 print(count)
 ```
 ```python
