@@ -2072,6 +2072,8 @@ print(res)
 (2, 3) , (3, 5), (5, 7)이 회의실을 이용할 수 있다 <br/>
 
 ```Swift
+import Foundation
+
 let n = Int(readLine()!)!
 var meetings = (0..<n).map { _ in readLine()!.split(separator: " ").map { Int($0)! } }
     .sorted { ($0[1], $0[0]) < ($1[1], $1[0]) }
