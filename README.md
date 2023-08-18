@@ -1949,6 +1949,153 @@ while lt <= rt {
 print(res)
 ```
 
+#
 
+### 25. 마구간 정하기 
+
+N개의 마구간이 수직선상에 있습니다. <br/>
+각 마구간은 x1, x2, x3, ......, xN의 좌표를 가지며, 마구간 간에 좌표가 중복되는 일은 없습니다. <br/>
+현수는 C마리의 말을 가지고 있는데, 이 말들은 서로 가까이 있는 것을 좋아하지 않습니다. <br/>
+각 마구간에는 한 마리의 말만 넣을 수 있고, 가장 가까운 두 말의 거리가 최대가 되게 말을 마구간에 배치하고 싶습니다. <br/>
+C마리의 말을 N개의 마구간에 배치했을 때 가장 가까운 두 말의 거리가 최대가 되는 그 최대 값을 출력하는 프로그램을 작성하세요. <br/>
+
+▣ 입력설명 <br/>
+첫 줄에 자연수 N(3<=N<=200,000)과 C(2<=C<=N)이 공백을 사이에 두고 주어집니다. <br/>
+둘째 줄부터 N개의 줄에 걸쳐 마구간의 좌표 xi(0<=xi<=1,000,000,000)가 한 줄에 하나씩 주어집니다. <br/>
+
+▣ 출력설명 <br/>
+첫 줄에 가장 가까운 두 말의 최대 거리를 출력하세요. <br/>
+
+▣ 입력예제 <br/>
+5 3 <br/>
+1 <br/>
+2 <br/>
+8 <br/> 
+4 <br/> 
+9 <br/>
+
+▣ 출력예제 <br/>
+3 <br/>
+
+```swift
+import Foundation
+
+func count(_ len: Int, _ line: [Int]) -> Int {
+    var cnt = 1
+    var ep = line[0]
+    
+    for val in line.dropFirst() where val - ep >= len {
+        cnt += 1
+        ep = val
+    }
+    
+    return cnt
+}
+
+let input = readLine()!.split(separator: " ").map { Int($0)! }
+let (n, c) = (input[0], input[1])
+let line = (0..<n).map { _ in Int(readLine()!)! }.sorted()
+
+var (lt, rt, res) = (1, line.last!, 0)
+
+while lt <= rt {
+    let mid = (lt + rt) / 2
+    if count(mid, line) >= c {
+        res = mid
+        lt = mid + 1
+    } else {
+        rt = mid - 1
+    }
+}
+
+print(res)
+```
+```python
+import sys
+sys.stdin=open("input.txt", "r")
+def Count(len):
+    cnt=1
+    ep=Line[0]
+    for i in range(1, n):
+        if Line[i]-ep>=len:
+            cnt+=1
+            ep=Line[i]
+    return cnt
+
+n, c=map(int, input().split())
+Line=[]
+for _ in range(n):
+    tmp=int(input())
+    Line.append(tmp)
+Line.sort()
+lt=1
+rt=Line[n-1]
+while lt<=rt:
+    mid=(lt+rt)//2
+    if Count(mid)>=c:
+        res=mid
+        lt=mid+1
+    else:
+        rt=mid-1
+
+print(res)
+```
+
+#
+
+### 26. 회의실 배정 
+
+한 개의 회의실이 있는데 이를 사용하고자 하는 n개의 회의들에 대하여 회의실 사용표를 만들 려고 한다. <br/>
+각 회의에 대해 시작시간과 끝나는 시간이 주어져 있고, 각 회의가 겹치지 않게 하 면서 회의실을 사용할 수 있는 최대수의 회의를 찾아라. <br/>
+단, 회의는 한번 시작하면 중간에 중 단될 수 없으며 한 회의가 끝나는 것과 동시에 다음 회의가 시작될 수 있다. <br/>
+
+▣ 입력설명 <br/>
+첫째 줄에 회의의 수 n(1<=n<=100,000)이 주어진다. <br/>
+둘째 줄부터 n+1 줄까지 각 회의의 정 보가 주어지는데  <br/>
+이것은 공백을 사이에 두고 회의의 시작시간과 끝나는 시간이 주어진다. <br/>
+
+▣ 출력설명 <br/>
+첫째 줄에 최대 사용할 수 있는 회의 수를 출력하여라. <br/>
+
+▣ 입력예제
+5 <br/>
+1 4 <br/>
+2 3 <br/>
+3 5 <br/>
+4 6 <br/>
+5 7 <br/> 
+
+▣ 출력예제 <br/>
+3 <br/>
+
+▣ 예제설명 <br/>
+(2, 3) , (3, 5), (5, 7)이 회의실을 이용할 수 있다 <br/>
+
+```Swift
+let n = Int(readLine()!)!
+var meetings = (0..<n).map { _ in readLine()!.split(separator: " ").map { Int($0)! } }
+    .sorted { ($0[1], $0[0]) < ($1[1], $1[0]) }
+
+var (endTime, count) = (0, 0)
+meetings.forEach { if $0[0] >= endTime { endTime = $0[1]; count += 1 } }
+print(count)
+```
+```python
+import sys
+sys.stdin=open("input.txt", "r")
+n=int(input())
+meeting=[]
+for i in range(n):
+    a, b=map(int, input().split())
+    meeting.append((a, b))
+meeting.sort(key=lambda x : (x[1], x[0]))
+et=0
+cnt=0
+for x, y in meeting:
+    if x>=et:
+        et=y
+        cnt+=1
+print(cnt)
+```
 
 
