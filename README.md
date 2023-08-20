@@ -1554,4 +1554,169 @@ for meeting in meetings {
 print(count)
 ```
 
+#
 
+### 27. 씨름선수 (그리디)
+
+현수는 씨름 감독입니다. 현수는 씨름 선수를 선발공고를 냈고, N명의 지원자가 지원을 했습 니다. <br/>
+현수는 각 지원자의 키와 몸무게 정보를 알고 있습니다.  <br/>
+현수는 씨름 선수 선발 원칙을 다음과 같이 정했습니다.  <br/>
+“다른 모든 지원자와 일대일 비교하여 키와 몸무게 중 적어도 하나는 크거나, 무거운 지원자 만 뽑기로 했습니다.”  <br/>
+만약 A라는 지원자보다 키도 크고 몸무게도 무거운 지원자가 존재한다면 A지원자는 탈락입니다.  <br/>
+
+▣ 입력설명  <br/>
+첫째 줄에 지원자의 수 N(5<=N<=50)이 주어집니다.  <br/>
+두 번째 줄부터 N명의 키와 몸무게 정보가 차례로 주어집니다.  <br/>
+각 선수의 키와 몸무게는 모두 다릅니다.  <br/>
+
+▣ 출력설명  <br/>
+첫째 줄에 씨름 선수로 뽑히는 최대 인원을 출력하세요.  <br/>
+
+▣ 입력예제  <br/>
+5  <br/>
+172 67  <br/>
+183 65  <br/>
+180 70  <br/>
+170 72  <br/>
+181 60  <br/>
+
+▣ 출력예제  <br/>
+3 <br/>
+
+▣ 출력설명  <br/>
+(183, 65), (180, 70), (170, 72)가 선발됩니다. (181, 60)은 (183, 65) 때문에 탈락하고,   <br/>
+(172, 67)은 (180, 70) 때문에 탈락합니다.  <br/>
+
+```swift
+import Foundation
+
+// Read the number of applicants from input
+if let n = Int(readLine() ?? "") {
+    
+    // We will be working with an array of tuples for the ssireum players' height and weight
+    var players: [(height: Int, weight: Int)] = []
+
+    // Read the height and weight for each applicant
+    for _ in 0..<n {
+        if let line = readLine() {
+            let values = line.split(separator: " ").map { Int($0)! }
+            players.append((height: values[0], weight: values[1]))
+        }
+    }
+
+    // Sort the players in descending order by height
+    players.sort { $0.height > $1.height }
+
+    var largestWeight = 0
+    var count = 0
+
+    for player in players {
+        if player.weight > largestWeight {
+            largestWeight = player.weight
+            count += 1
+        }
+    }
+
+    print(count)
+}
+```
+
+#
+
+### 28. 창고정리 (그리디)
+
+창고에 상자가 가로방향으로 일렬로 쌓여 있습니다. 만약 가로의 길이가 7이라면 <br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/16.png" width="400" height="400"><br/>
+
+1열은 높이가 6으로 6개의 상자가 쌓여 있고, 2열은 3개의 상자, 3열은 9개의 상자가 쌓여 있 으며 높이는 9라고 읽는다. <br/>
+창고 높이 조정은 가장 높은 곳에 상자를 가장 낮은 곳으로 이동하는 것을 말한다. <br/>
+가장 높은 곳이나 가장 낮은 곳이 여러곳이면 그 중 아무거나 선택하면 된다. <br/>
+위에 그림을 1회 높이 조정을 하면 다음과 같아진다. <br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/17.png" width="400" height="400"><br/>
+
+창고의 가로 길이와 각 열의 상자 높이가 주어집니다.  <br/>
+m회의 높이 조정을 한 후 가장 높은 곳 과 가장 낮은 곳의 차이를 출력하는 프로그램을 작성하세요. <br/>
+
+▣ 입력설명 <br/>
+첫 번째 줄에 창고 가로의 길이인 자연수 L(1<=L<=100)이 주어집니다. <br/>
+두 번째 줄에 L개의 자연수가 공백을 사이에 두고 입력됩니다. 각 자연수는 100을 넘지 않습니다 <br/>
+세 번째 줄에 높이 조정 횟수인 M(1<=M<=1,000)이 주어집니다. <br/>
+
+▣ 출력설명 <br/>
+M회의 높이 조정을 마친 후 가장 높은곳과 가장 낮은 곳의 차이를 출력하세요. <br/>
+
+▣ 입력예제 <br/>
+10  <br/>
+69 42 68 76 40 87 14 65 76 81 <br/>
+50 <br/>
+
+▣ 출력예제 <br/>
+20 <br/>
+
+```swift
+let L = Int(readLine()!)!
+var heights = readLine()!.split(separator: " ").map { Int($0)! }
+let m = Int(readLine()!)!
+
+for _ in 0..<m {
+    heights.sort()
+    heights[0] += 1
+    heights[L-1] -= 1
+}
+
+print(heights.max()! - heights.min()!)
+```
+
+#
+
+### 29. 침몰하는 타이타닉 (그리디)
+
+유럽에서 가장 유명했던 유람선 타이타닉이 침몰하고 있습니다. 
+유람선에는 N명의 승객이 타고 있습니다. 
+구명보트를 타고 탈출해야 하는데 타이타닉에 있는 구명보트는 2명 이하로만 탈 수 있 으며, 
+보트 한 개에 탈 수 있는 총 무게도 M kg 이하로 제한되어 있습니다.
+N명의 승객 몸무게가 주어졌을 때 승객 모두가 탈출하기 위한 구명보트의 최소개수를 출력하는 프로그램을 작성하세요.
+
+▣ 입력설명
+첫째 줄에 자연수 N(5<=N<=1000)과 M(70<=M<=250)이 주어집니다.
+두 번째 줄에 N개로 구성된 몸무게 수열이 주어집니다. 몸무게는 50이상 150이하입니다. 
+각 승객의 몸무게는 M을 넘지는 않습니다. 즉 탈출을 못하는 경우는 없습니다.
+
+▣ 출력설명
+첫째 줄에 구명보트의 최소 개수를 출력합니다.
+
+▣ 입력예제 
+5 140
+90 50 70 100 60
+
+▣ 출력예제 
+3
+
+```swift
+import Foundation
+
+let inputs = readLine()!.split(separator: " ").map { Int($0)! }
+let (n, limit) = (inputs[0], inputs[1])
+var weights = readLine()!.split(separator: " ").map { Int($0)! }.sorted()
+
+var count = 0
+
+while !weights.isEmpty {
+    if weights.count == 1 {
+        count += 1
+        break
+    }
+    
+    if weights.first! + weights.last! > limit {
+        weights.removeLast()
+    } else {
+        weights.removeFirst()
+        weights.removeLast()
+    }
+    count += 1
+}
+
+print(count)
+```
