@@ -1590,31 +1590,29 @@ print(count)
 ```swift
 import Foundation
 
-if let n = Int(readLine() ?? "") {
+if let n = Int(readLine()!)! 
     
-    var players: [(height: Int, weight: Int)] = []
+var players: [(height: Int, weight: Int)] = []
 
-    for _ in 0..<n {
-        if let line = readLine() {
-            let values = line.split(separator: " ").map { Int($0)! }
-            players.append((height: values[0], weight: values[1]))
+for _ in 0..<n {
+    if let line = readLine() {
+        let values = line.split(separator: " ").map { Int($0)! }
+        players.append((height: values[0], weight: values[1]))
         }
-    }
-
-    players.sort { $0.height > $1.height }
-
-    var largestWeight = 0
-    var count = 0
-
-    for player in players {
-        if player.weight > largestWeight {
-            largestWeight = player.weight
-            count += 1
-        }
-    }
-
-    print(count)
 }
+
+players.sort { $0.height > $1.height }
+
+var largestWeight = 0
+var count = 0
+
+for player in players {
+    if player.weight > largestWeight {
+        largestWeight = player.weight
+        count += 1
+    }
+}
+print(count)
 ```
 
 #
