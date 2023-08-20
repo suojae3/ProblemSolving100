@@ -1590,13 +1590,10 @@ print(count)
 ```swift
 import Foundation
 
-// Read the number of applicants from input
 if let n = Int(readLine() ?? "") {
     
-    // We will be working with an array of tuples for the ssireum players' height and weight
     var players: [(height: Int, weight: Int)] = []
 
-    // Read the height and weight for each applicant
     for _ in 0..<n {
         if let line = readLine() {
             let values = line.split(separator: " ").map { Int($0)! }
@@ -1604,7 +1601,6 @@ if let n = Int(readLine() ?? "") {
         }
     }
 
-    // Sort the players in descending order by height
     players.sort { $0.height > $1.height }
 
     var largestWeight = 0
@@ -1656,6 +1652,8 @@ M회의 높이 조정을 마친 후 가장 높은곳과 가장 낮은 곳의 차
 20 <br/>
 
 ```swift
+import Foundation
+
 let L = Int(readLine()!)!
 var heights = readLine()!.split(separator: " ").map { Int($0)! }
 let m = Int(readLine()!)!
