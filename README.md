@@ -21,20 +21,6 @@
 
 ▣ 출력예제<br/> 3
 
-```python
-import sys
-
-n, k=map(int, input().split())
-cnt=0
-for i in range(1, n+1):
-    if n%i==0:
-        cnt+=1
-    if cnt==k:
-        print(i)
-        break
-else: 
-    print(-1)
-```
 ```swift
 import Foundation
 
@@ -81,17 +67,6 @@ N개의 숫자로 이루어진 숫자열이 주어지면 해당 숫자열중에�
 #1 7 <br/>
 #2 6
 
-```python
-import sys
-
-T=int(input())
-for t in range(T):
-    n, s, e, k=map(int, input().split())
-    a=list(map(int, input().split()))
-    a=a[s-1:e]
-    a.sort()
-    print("#%d %d" %(t+1, a[k-1])) 
-```
 ```swift
 import Foundation
 
@@ -134,21 +109,6 @@ for t in 1...T {
 1 <br/>
 143<br/>
 
-```python
-import sys
-
-n,k=map(int, input().split())
-a=list(map(int, input().split()))
-res=set()
-for i in range(n):
-    for j in range(i+1, n):
-        for m in range(j+1, n):
-            res.add(a[i]+a[j]+a[m])
-
-res=list(res)
-res.sort(reverse=True)
-print(res[k-1])
-```
 ```Swift
 import Foundation
 
@@ -177,13 +137,6 @@ print(sortedRes[k-1])
 
 ### (Tip) 최솟값 구하기
 
-```Python
-arr = [5, 3, 7, 9, 2, 5, 2, 6]
-arrMin = float('inf') #최댓값 할당
-for i in range(len(arr)):
-    if arr[i]<arrMin:
-        arrMin=arr[i]
-```
 ```Swift
 let arr = [5, 3, 7, 9, 2, 5, 2, 6]
 var arrMin = Int.max  
@@ -222,33 +175,6 @@ N명의 학생의 수학점수가 주어집니다. N명의 학생들의 평균(�
 ▣ 출력 예제 <br/>
 1 7 <br/>
 
-```python
-import sys
-
-n= int(input())
-a=list(map(int, input().split()))
-
-# round()는 반홀림함수 일반적으로 half_up방식 (1.5면 2로 뱉음)
-# 파이썬의 roundsms half_even 방식 택함(1.5면 1로 뱉음) 그래서 +0.5
-ave=round(sum(a)/n+0.5)
-min=21470000000 # 4바이트에서 가장 큰 값
-
-for idx, x in enumerate(a):
-    tmp=abs(x-ave) # 절댓값 함수 abs()
-    if tmp<min:
-        min=tmp
-        score=x
-        res=idx+1
-
-    #답이 두 개 이상인 경우 점수가 높은 사람 우선순위
-    # 점수가 같으면 앞번호 유지
-    elif tmp==min:
-        if x>score:
-            score=x
-            res=idx+1
-
-print(ave, res)
-```
 ```Swift
 import Foundation
 
@@ -299,30 +225,6 @@ print(Int(ave), res)
 ▣ 출력예제<br/>
 5 6 7<br/>
 
-```python
-import sys
-n, m=map(int, input().split())
-
-# max값을 이후에 지속적으로 넣어주어야하기 때문에 가장 작은 값 할당
-max = -214700000
-
-#눈의 합은 n+m까지 나오겠지만 혹시모르니 +3으로 넉넉하게 잡아주기
-cnt=[0]*(n+m+3)
-
-#1부터 n까지 for문 돌리기
-for i in range(1, n+1):
-    for j in range(1, m+1):
-        cnt[i+j]+=1
-
-# +1을 해야 n+m까지 돔
-for i in range(n+m+1):
-    if cnt[i]>max:
-        max=cnt[i]
-
-for i in range(n+m+1):
-    if cnt[i]==max:
-        print(i, end=' ')
-```
 ```swift
 import Foundation
 
@@ -376,29 +278,6 @@ N개의 자연수가 입력되면 각 자연수의 자릿수의 합을 구하고
 ▣ 출력예제<br/> 
 97<br/>
 
-```python
-import sys
-n=int(input())
-a=list( map(int, input().split()) )
-max=-214700000
-
-def digit_sum(x):
-    sum=0
-
-    # x 각 자릿수 합을 sum에 누적하기
-    while x>0:
-        sum+=x%10
-        x=x//10
-
-for x in a:
-    tot=digit_sums(x)
-    if tot>max:
-        max=tot
-        res=x
-print(res)
-
-
-```
 ```Swift
 import Foundation
 
@@ -449,23 +328,7 @@ print(res)
 ▣ 출력예제 <br/>
 8 <br/>
 
-```Python
-import sys
-n=int(input())
-ch=[0]*(n+1)
-cnt=0
 
-# 소수는 2부터 시작
-for i in range(2, n+1):
-    if ch[i]==0:
-        cnt+=1
-
-        # i부터 시작해서 i씩 n까지 증가
-        for j in range(i, n+1, i):
-            ch[j]=1
-
-print(cnt)
-```
 ```Swift
 import Foundation
 
@@ -508,34 +371,6 @@ N개의 자연수가 입력되면 각 자연수를 뒤집은 후 그 뒤집은 �
 ▣ 출력예제<br/>
 23 73 <br/>
 
-```python
-import sys
-n=int(input())
-a=list(map(int, input().split()))
-
-def reverse(x):
-    res=0
-    while x>0:
-        t=x%10
-        res=res*10+t
-        x=x//10
-    return res
-
-def isPrime(x):
-    if x==1:
-        return False
-    for i in range(2, x//2+1): #절반까지만 돌아도 소수 판별 가능
-        if x%i==0:
-            return False
-    else:
-        return True    
-            
-
-for x in a:
-    tmp=reverse(x)
-    if isPrime(tmp):
-        print(tmp, end=' ')
-```
 ```Swift
 import Foundation
 
@@ -602,29 +437,6 @@ N 명이 주사위 게임에 참여하였을 때, 가장 많은 상금을 받은
 ▣ 출력예제<br/>
 12000<br/>
 
-```python
-import sys
-n=int(input())
-res=0
-for i in range(n):
-    tmp=input().split()
-    tmp=sort()
-    a, b, c=map(int, tmp)
-    print(a, b, c)
-
-    #if문을 작성할 때는 가장 좁은 범위부터
-    if  a==b and b==c:
-        money=10000+a*1000
-    elif a==b or a==c:
-        money=1000+(a*100)
-    elif b==c:
-        money=1000+(b*100)
-    else:
-        money=c*100
-    if money>res:
-        res=money
-print(res)
-```
 ```Swift
 import Foundation
 
@@ -688,21 +500,6 @@ OX 문제는 맞거나 틀린 두 경우의 답을 가지는 문제를 말한다
 ▣ 출력예제<br/>
 10<br/>
 
-```python
-import sys
-
-n=int(input())
-a=list(map(int, input().split()))
-sum=0
-cnt=0
-for x in a:
-    if x==1:
-        cnt+=1
-        sum+=cnt
-    else:
-        cnt=0
-print(sum)
-```
 ```swift
 import Foundation
 
@@ -753,22 +550,7 @@ gooG <br/>
 #4 NO <br/>
 #5 YES <br/>
 
-```python
-import sys
 
-n=int(input())
-for i in range(n):
-    s=input()
-    s=s.upper()
-    size=len(s[-1])
-
-    for j in range(size//2):
-        if s[j]!=s[-1-j]:
-            print("#%d NO" %(i+1))
-            break
-    else:
-        print("#%d YES" %(i+1))
-```
 ```swift
 import Foundation
 
@@ -809,21 +591,6 @@ g0en2Ts8eSoft<br/>
 28<br/>
 6<br/>
 
-```python
-import sys
-s=input()
-res=0
-
-for x in s:
-    if x.isDecimal():
-        res=res*10+int(x)
-print(res)
-cnt = 0
-for i in range(1, res+1):
-    if res%i==0:
-        cnt+=1
-print(cnt)
-```
 ```Swift
 import Foundation
 
@@ -898,20 +665,6 @@ i번째 줄에는 i번째 구간의 시 작 위치 ai와 끝 위치 bi가 차례
 ▣ 출력예제 <br/>
 1 2 3 4 10 9 8 7 13 12 11 5 6 14 15 16 17 18 19 20 <br/>
 
-```python
-import sys
-
-a=list(range(21))
-for _ in range(10):
-    s, e=map(int, input().split())
-    for i in range((e-s+1)//2):
-        a[s+i], a[e-i]=a[e-i], a[s+i]
-
-a.pop(0)
-for x in a:
-    print(x, end= ' ')
-print(a)
-```
 ```Swift
 import Foundation
 
@@ -963,30 +716,6 @@ for card in cards {
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="image/5.png" width="400" height="200"><br/>
 
 
-```python
-import sys
-
-n=int(input())
-a=list(map(int, input().split()))
-m=int(input())
-b=list(map(int, input().split()))
-p1=p2=0
-c=[]
-while p1<n and p2<m:
-    if a[p1]<=b[p2]:
-        c.append(a[p1])
-        p1+=1
-    else:
-        c.append(b[p2])
-        p2+=1
-if p1<n:
-    c=c+a[p1:]
-if p2<m:
-    c=c+b[p2:]
-
-for x in c:
-    print(x, end=' ')
-```
 ```Swift
 import Foundation
 
@@ -1047,31 +776,6 @@ N개의 수로 된 수열 A[1], A[2], ..., A[N] 이 있다. <br/>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="image/6.png" width="400" height="200"><br/>
 
-```python
-import sys
-
-n, m=map(int, input().split())
-a=list(map(int, input().split()))
-lt=0
-rt=1
-tot=a[0]
-cnt=0
-while True:
-    if tot<m:
-        if rt<n:
-            tot+=a[rt]
-            rt+=1
-        else:
-            break
-    elif tot==m:
-        cnt+=1
-        tot-=a[lt]
-        lt+=1
-    else:
-        tot-=a[lt]
-        lt+=1
-print(cnt)
-```
 ```swift
 let nm = readLine()!.split(separator: " ").map { Int($0)! }
 let (n, m) = (nm[0], nm[1])
@@ -1131,31 +835,6 @@ N*N의 격자판이 주어지면 각 행의 합, 각 열의 합, 두 대각선�
 
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="image/7.png" width="400" height="200"><br/>
 
-```python
-import sys
-sys.stdin = open("input.txt", 'r')
-n=int(input())
-a=[list(map(int, input().split())) for _ in range(n)]
-largest=-2147000000
-for i in range(n):
-    sum1=sum2=0
-    for j in range(n):
-        sum1+=a[i][j]
-        sum2+=a[j][i]
-    if sum1>largest:
-        largest=sum1
-    if sum2>largest:
-        largest=sum2
-sum1=sum2=0
-for i in range(n):
-    sum1+=a[i][i]
-    sum2+=a[i][n-i-1]
-if sum1>largest:
-    largest=sum1
-if sum2>largest:
-    largest=sum2
-print(largest)
-```
 ```Swift
 import Foundation
 
@@ -1221,24 +900,6 @@ N의 크기는 항상 홀수이다. 가을이 되어 사과를 수확해야 하�
 
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="image/8.png" width="400" height="200"><br/>
 
-```python
-import sys
-sys.stdin = open("input.txt", 'r')
-n=int(input())
-a=[list(map(int, input().split())) for _ in range(n)]
-res=0
-s=e=n//2
-for i in range(n):
-    for j in range(s, e+1):
-        res+=a[i][j]
-    if i<n//2:
-        s-=1
-        e+=1
-    else:
-        s+=1
-        e-=1
-print(res)
-```
 ```swift
 let n = Int(readLine()!)!
 var a: [[Int]] = []
@@ -1312,34 +973,6 @@ M개의 회전명령을 실행하고 난 후 아래와 같이 마당의 모래�
 
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="image/9.png" width="400" height="200"><br/>
 
-```python
-import sys
-n=int(input())
-a=[list(map(int, input().split())) for _ in range(n)]
-m=int(input())
-for i in range(m):
-    h, t, k=map(int, input().split())
-    if(t==0):
-        for _ in range(k):
-            a[h-1].append(a[h-1].pop(0))
-    else:
-        for _ in range(k):
-            a[h-1].insert(0, a[h-1].pop())
-
-res=0
-s=0
-e=n-1
-for i in range(n):
-    for j in range(s, e+1):
-        res+=a[i][j]
-    if i<n//2:
-        s+=1
-        e-=1
-    else:
-        s-=1
-        e+=1
-print(res)
-```
 ```swift
 import Foundation
 
@@ -1421,25 +1054,6 @@ print(res)
 
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="image/10.png" width="400" height="200"><br/>
 
-```python
-import sys
-dx=[-1, 0, 1, 0]
-dy=[0, 1, 0, -1]
-n=int(input())
-a=[list(map(int, input().split())) for _ in range(n)]
-a.insert(0, [0]*n)
-a.append([0]*n)
-for x in a:
-    x.insert(0, 0)
-    x.append(0)
-
-cnt=0
-for i in range(1, n+1):
-    for j in range(1, n+1):
-        if all(a[i][j]>a[i+dx[k]][j+dy[k]] for k in range(4)):
-            cnt+=1
-print(cnt)
-```
 ```swift
 import Foundation
 
@@ -1513,39 +1127,6 @@ YES  <br/>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="image/12.png" width="400" height="400"><br/>
 
-```python
-import sys
-sys.stdin=open("input.txt", "r")
-def check(a):
-
-    for i in range(9):
-
-        # 행 / 열 체크
-        ch1=[0]*10
-        ch2=[0]*10
-        for j in range(9):
-            ch1[a[i][j]]=1
-            ch2[a[j][i]]=1
-        if sum(ch1)!=9 or sum(ch2)!=9:
-            return False
-
-    # 그룹탐색은 4중 for문으로 체크
-    for i in range(3):
-        for j in range(3):
-            ch3=[0]*10
-            for k in range(3):
-                for s in range(3):
-                    ch3[a[i*3+k][j*3+s]]=1
-            if sum(ch3)!=9:
-                return False
-    return True
-
-b=[list(map(int, input().split())) for _ in range(9)]
-if check(b):
-    print("YES")
-else:
-    print("NO")
-```
 ```Swift
 import Foundation
 
@@ -1627,25 +1208,6 @@ if check(board) {
 
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="image/14.png" width="400" height="400"><br/>
 
-
-```python
-import sys
-sys.stdin=open("input.txt", "r")
-board=[list(map(int, input().split())) for _ in range(7)]
-cnt=0
-for i in range(3):
-    for j in range(7):
-        tmp=board[j][i:i+5]
-        if tmp==tmp[::-1]:
-            cnt+=1
-        for k in range(2):
-            if board[i+k][j]!=board[i+5-k-1][j]:
-                break;
-        else:
-            cnt+=1
-        
-print(cnt)
-```
 ```swift
 import Foundation
 
@@ -1695,24 +1257,7 @@ N개의 수를 오름차순으로 정렬한 다음 N개의 수 중 한 개의 �
 ▣ 출력예제 <br/>
 3
 
-```python
-import sys
-sys.stdin=open("input.txt", "r")
-n, m=map(int, input().split())
-a=list(map(int, input().split()))
-a.sort()
-lt=0
-rt=n-1
-while lt<=rt:
-    mid=(lt+rt)//2
-    if a[mid]==m:
-        print(mid+1)
-        break
-    elif a[mid]>m:
-        rt=mid-1
-    else:
-        lt=mid+1
-```
+
 ```Swift
 import Foundation
 
@@ -1778,34 +1323,6 @@ K는 1이상 10,000이하의 정수이고, N은 1이상 1,000,000이하의 정�
 
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="image/15.png" width="400" height="400"><br/>
 
-```python
-import sys
-sys.stdin=open("input.txt", "r")
-def Count(len):
-    cnt=0
-    for x in Line:
-        cnt+=(x//len)
-    return cnt
-
-k, n=map(int, input().split())
-Line=[]
-res=0
-largest=0
-for i in range(k):
-    tmp=int(input())
-    Line.append(tmp)
-    largest=max(largest, tmp)
-lt=1
-rt=largest
-while lt<=rt:
-    mid=(lt+rt)//2
-    if Count(mid)>=n:
-        res=mid
-        lt=mid+1
-    else:
-        rt=mid-1
-print(res)
-```
 ```swift
 import Foundation
 
@@ -1880,35 +1397,6 @@ DVD에는 총 N개의 곡이 들어가는데, DVD에 녹화할 때에는 라이�
 ▣ 출력예제 <br/>
 17 <br/>
 
-```python
-import sys
-sys.stdin=open("input.txt", "r")
-def Count(capacity):
-    cnt=1
-    sum=0
-    for x in Music:
-        if sum+x>capacity:
-            cnt+=1
-            sum=x
-        else:
-            sum+=x
-    return cnt
-
-n, m=map(int, input().split())
-Music=list(map(int, input().split()))
-maxx=max(Music)
-lt=1
-rt=sum(Music)
-res=0
-while lt<=rt:
-    mid=(lt+rt)//2
-    if mid>=maxx and Count(mid)<=m:
-        res=mid
-        rt=mid-1
-    else:
-        lt=mid+1
-print(res)
-```
 ```Swift
 import Foundation
 
@@ -2010,37 +1498,6 @@ while lt <= rt {
 
 print(res)
 ```
-```python
-import sys
-sys.stdin=open("input.txt", "r")
-def Count(len):
-    cnt=1
-    ep=Line[0]
-    for i in range(1, n):
-        if Line[i]-ep>=len:
-            cnt+=1
-            ep=Line[i]
-    return cnt
-
-n, c=map(int, input().split())
-Line=[]
-for _ in range(n):
-    tmp=int(input())
-    Line.append(tmp)
-Line.sort()
-lt=1
-rt=Line[n-1]
-while lt<=rt:
-    mid=(lt+rt)//2
-    if Count(mid)>=c:
-        res=mid
-        lt=mid+1
-    else:
-        rt=mid-1
-
-print(res)
-```
-
 #
 
 ### 26. 회의실 배정 
@@ -2095,23 +1552,6 @@ for meeting in meetings {
 }
 
 print(count)
-```
-```python
-import sys
-sys.stdin=open("input.txt", "r")
-n=int(input())
-meeting=[]
-for i in range(n):
-    a, b=map(int, input().split())
-    meeting.append((a, b))
-meeting.sort(key=lambda x : (x[1], x[0]))
-et=0
-cnt=0
-for x, y in meeting:
-    if x>=et:
-        et=y
-        cnt+=1
-print(cnt)
 ```
 
 
