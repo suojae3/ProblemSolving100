@@ -181,7 +181,7 @@ import Foundation
 let n = Int(readLine()!)!
 let a = readLine()!.split(separator: " ").map { Int($0)! }
 
-//Swift도 파이썬과 마찬가지로 half_even이기 때문에 0.5를 더해준다
+//Swift도 파이썬과 마찬가지로 half_even이기 때문에 0.1을 더해준다
 let ave = round(Double(a.reduce(0, +)) / Double(n) + 0.1)
 var minDistance = Double(Int.max)
 var score = -1
