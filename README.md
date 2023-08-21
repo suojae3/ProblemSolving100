@@ -1716,3 +1716,279 @@ while !weights.isEmpty {
 
 print(count)
 ```
+#
+
+### 30. 증가수열 만들기 (그리디)
+
+1부터 N까지의 모든 자연수로 구성된 길이 N의 수열이 주어집니다. <br/>
+이 수열의 왼쪽 맨 끝 숫자 또는 오른쪽 맨 끝 숫자 중 하나를 가져와 나열하여 가장 긴 증가수열 을 만듭니다. <br/>
+이때 수열에서 가져온 숫자(왼쪽 맨 끝 또는 오른쪽 맨 끝)는 그 수열에서 제거됩니다. <br/>
+예를 들어 2 4 5 1 3 이 주어지면 만들 수 있는 가장 긴 증가수열의 길이는 4입니다.  <br/>
+맨 처음 왼쪽 끝에서 2를 가져오고, 그 다음 오른쪽 끝에서 3을 가져오고,  <br/> 
+왼쪽 끝에서 4, 왼쪽끝에서5를가져와 2345증가수열을만들수있습니다.  <br/>
+
+▣ 입력설명  <br/>
+첫째 줄에 자연수 N(3<=N<=100)이 주어집니다. 두 번째 줄에 N개로 구성된 수열이 주어집니다.  <br/>
+▣ 출력설명
+첫째 줄에 최대 증가수열의 길이를 출력합니다.
+두 번째 줄에 가져간 순서대로 왼쪽 끝에서 가져갔으면 ‘L', 오른쪽 끝에서 가져갔으면 ’R'를 써 간 문자열을 출력합니다.(단 마지막에 남은 값은 왼쪽 끝으로 생각합니다.)
+▣ 입력예제
+5
+24513
+
+▣ 출력예제
+4
+LRLL
+
+▣ 입력예제
+10
+3 2 10 1 5 4 7 8 9 6
+
+▣ 출력예제 
+3
+LRR
+
+```swift
+let n = Int(readLine()!)!
+var sequence = readLine()!.split(separator: " ").map { Int($0)! }
+
+var lt = 0, rt = n - 1, last = 0, res = ""
+
+while lt <= rt {
+    var choices: [(Int, String)] = []
+    
+    if sequence[lt] > last { choices.append((sequence[lt], "L")) }
+    if sequence[rt] > last { choices.append((sequence[rt], "R")) }
+    
+    if let choice = choices.sorted(by: { $0.0 < $1.0 }).first {
+        res += choice.1
+        last = choice.0
+        choice.1 == "L" ? (lt += 1) : (rt -= 1)
+    } else {
+        break
+    }
+}
+
+print(res.count)
+print(res)
+```
+
+#
+
+### 31. 역수열 (그리디) 
+
+1부터 n까지의 수를 한 번씩만 사용하여 이루어진 수열이 있을 때, 1부터 n까지 <br/> 
+각각의 수 앞 에 놓여 있는 자신보다 큰 수들의 개수를 수열로 표현한 것을 역수열이라 한다. <br/> 
+예를 들어 다음과 같은 수열의 경우  <br/> 
+4 8 6 2 5 1 3 7 <br/> 
+1 앞에 놓인 1보다 큰 수는 4, 8, 6, 2, 5 이렇게 5개이고, <br/> 
+2 앞에 놓인 2보다 큰 수는 4, 8, 6 이렇게 3개, <br/> 
+3 앞에 놓인 3보다 큰 수는 4, 8, 6, 5 이렇게 4개 .... <br/> 
+
+따라서 4 8 6 2 5 1 3 7의 역수열은 5 3 4 0 2 1 1 0 이 된다 <br/> 
+n과 1부터 n까지의 수를 사용하여 이루어진 수열의 역수열이 주어졌을 때,  <br/> 
+원래 수열을 출력하는 프로그램을 작성하세요
+
+
+▣ 입력설명 <br/> 
+첫 번째 줄에 자연수 N(3<=N<100)이 주어지고,  <br/> 
+두 번째 줄에는 역수열이 숫자 사이에 한 칸의 공백을 두고 주어진다 <br/> 
+
+▣ 출력설명  <br/> 
+원래 수열을 출력합니다 <br/> 
+
+▣ 입력예제  <br/> 
+8 <br/> 
+5 3 4 0 2 1 1 0 <br/> 
+
+▣ 출력예제 <br/> 
+4 8 6 2 5 1 3 7 <br/> 
+
+```swift
+let n = Int(readLine()!)!
+var inverseSequence = readLine()!.split(separator: " ").map { Int($0)! }
+var sequence = [Int](repeating: 0, count: n)
+
+for i in 0..<n {
+    for j in 0..<n {
+        if inverseSequence[i] == 0, sequence[j] == 0 {
+            sequence[j] = i + 1
+            break
+        } else if sequence[j] == 0 {
+            inverseSequence[i] -= 1
+        }
+    }
+}
+
+print(sequence.map { String($0) }.joined(separator: " "))
+```
+
+#
+
+### 32. 가장 큰 수 (그리디) 
+
+선생님은 현수에게 숫자 하나를 주고, 해당 숫자의 자릿수들 중 m개의 숫자를 제거하여 <br/>
+가장 큰 수를 만들라고 했습니다. 여러분이 현수를 도와주세요.(단 숫자의 순서는 유지해야 합니다) <br/>
+만약 5276823 이 주어지고 3개의 자릿수를 제거한다면 <br/>
+7823이 가장 큰 숫자가 됩니다. <br/>
+
+▣ 입력설명 <br/>
+첫째 줄에 숫자(길이는 1000을 넘지 않습니다)와 제가해야할 자릿수의 개수가 주어집니다. <br/>
+
+▣ 출력설명 <br/>
+가장 큰 수를 출력합니다. <br/>
+
+▣ 입력예제 <br/>
+5276823 3 <br/>
+
+▣ 출력예제 <br/>
+7823 <br/>
+
+▣ 입력예제 <br/>
+9977252641 5 <br/>
+
+▣ 출력예제 <br/>
+99776 <br/>
+
+```swift
+let inputs = readLine()!.split(separator: " ").map { Int($0)! }
+let (num, m) = (Array(String(inputs[0])).map { Int(String($0))! }, inputs[1])
+var stack: [Int] = []
+var deletions = m
+
+for x in num {
+    while !stack.isEmpty, deletions > 0, stack.last! < x {
+        stack.removeLast()
+        deletions -= 1
+    }
+    stack.append(x)
+}
+
+if deletions > 0 {
+    stack = Array(stack.dropLast(deletions))
+}
+
+print(stack.map { String($0) }.joined())
+````
+
+#
+
+### 33 쇠막대기 
+
+여러 개의 쇠막대기를 레이저로 절단하려고 한다. <br/>
+효율적인 작업을 위해서 쇠막대기를 아래에 서 위로 겹쳐 놓고, 레이저를 위에서 수직으로 발사하여 쇠막대기들을 자른다.  <br/>
+쇠막대기와 레 이저의 배치는 다음 조건을 만족한다. <br/>
+• 쇠막대기는 자신보다 긴 쇠막대기 위에만 놓일 수 있다. - 쇠막대기를 다른 쇠막대기 위에 놓는 경우 완전히 포함되도록 놓되, 끝점은 겹치지 않도록 놓는다. <br/>
+• 각 쇠막대기를 자르는 레이저는 적어도 하나 존재한다. <br/>
+• 레이저는 어떤 쇠막대기의 양 끝점과도 겹치지 않는다. <br/>
+아래 그림은 위 조건을 만족하는 예를 보여준다. 수평으로 그려진 굵은 실선은 쇠막대기이고, 점은 레이저의 위치, 수직으로 그려진 점선 화살표는 레이저의 발사 방향이다. <br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/018.png" width="400" height="200"><br/>
+
+이러한 레이저와 쇠막대기의 배치는 다음과 같이 괄호를 이용하여 왼쪽부터 순서대로 표현할 수 있다. <br/>
+1. 레이저는 여는 괄호와 닫는 괄호의 인접한 쌍 ‘( ) ’ 으로 표현된다. 또한, 모든 ‘( ) ’는 반 드시 레이저를 표현한다. <br/>
+2. 쇠막대기의 왼쪽 끝은 여는 괄호 ‘ ( ’ 로, 오른쪽 끝은 닫힌 괄호 ‘) ’ 로 표현된다. <br/>
+위 예의 괄호 표현은 그림 위에 주어져 있다. <br/>
+쇠막대기는 레이저에 의해 몇 개의 조각으로 잘려지는데, 위 예에서 가장 위에 있는 두 개의 쇠막대기는 각각 3개와 2개의 조각으로 잘려지고, 이와 같은 방식으로 주어진 쇠막대기들은 총 17개의 조각으로 잘려진다. <br/>
+쇠막대기와 레이저의 배치를 나타내는 괄호 표현이 주어졌을 때, 잘려진 쇠막대기 조각의 총 개수를 구하는 프로그램을 작성하시오. <br/>
+
+▣ 입력설명  <br/>
+한 줄에 쇠막대기와 레이저의 배치를 나타내는 괄호 표현이 공백없이 주어진다. 괄호 문자의 개수는 최대 100,000이다. <br/>
+
+▣ 출력설명 <br/>
+잘려진 조각의 총 개수를 나타내는 정수를 한 줄에 출력한다. <br/>
+
+▣ 입력예제 ()(((()())(())()))(()) <br/>
+
+▣ 출력예제 17 <br/>
+
+▣ 입력예제 (((()(()()))(())()))(()()) <br/>
+
+▣ 출력예제 24 <br/>
+
+```swift
+import Foundation
+
+let s = Array(readLine()!)
+var stack: [Character] = []
+var cnt = 0
+
+for i in 0..<s.count {
+    if s[i] == "(" {
+        stack.append(s[i])
+    } else {
+        stack.removeLast()
+        cnt += s[i-1] == "(" ? stack.count : 1
+    }
+}
+
+print(cnt)
+```
+
+#
+
+### 34. 후위 표기식 만들기
+
+중위표기식이 입력되면 후위표기식으로 변환하는 프로그램을 작성하세요. <br/>
+중위표기식은 우리가 흔히 쓰은 표현식입니다. 즉 3+5 와 같이 연산자가 피연산자 사이에 있 으면 중위표기식입니다. <br/>
+후위표기식은 35+ 와 같이 연산자가 피연산자 뒤에 있는 표기식입니다. <br/>
+예를 들어 중위표기식이 3+5*2 를 후위표기식으로 표현하면 352*+ 로 표현됩니다. <br/>
+만약 다음과 같이 연산 최우선인 괄호가 표현된 식이라면 <br/>
+(3+5)*2 이면 35+2* 로 바꾸어야 합니다. <br/>
+※후위 표기식이 이해가 안되면 구글링으로 공부해보는 것도 좋습니다. <br/>
+
+▣ 입력설명 <br/>
+첫 줄에 중위표기식이 주어진다. 길이는 100을 넘지 않는다. 
+식은 1~9의 숫자와 +, -, *, /, (, ) 연산자로만 이루어진다. <br/>
+
+▣ 출력설명 후위표기식을 출력한다. <br/>
+
+▣ 입력예제 3+5*2/(7-2) <br/>
+
+▣ 출력예제 352*72-/+ <br/>
+
+▣ 입력예제 3*(5+2)-9 <br/>
+
+▣ 출력예제 352+*9- <br/>
+
+```Swift
+import Foundation
+
+let expression = Array(readLine()!)
+var stack: [Character] = []
+var result = ""
+
+for char in expression {
+    if char.isNumber {
+        result.append(char)
+    } else {
+        switch char {
+        case "(":
+            stack.append(char)
+        case "*", "/":
+            while let last = stack.last, last == "*" || last == "/" {
+                result.append(stack.removeLast())
+            }
+            stack.append(char)
+        case "+", "-":
+            while let last = stack.last, last != "(" {
+                result.append(stack.removeLast())
+            }
+            stack.append(char)
+        case ")":
+            while let last = stack.last, last != "(" {
+                result.append(stack.removeLast())
+            }
+            stack.removeLast()
+        default:
+            break
+        }
+    }
+}
+
+while let last = stack.last {
+    result.append(stack.removeLast())
+}
+
+print(result)
+```
