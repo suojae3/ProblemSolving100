@@ -1851,9 +1851,12 @@ print(sequence.map { String($0) }.joined(separator: " "))
 99776 <br/>
 
 ```swift
-let inputs = readLine()!.split(separator: " ").map { Int($0)! }
-let (num, m) = (Array(String(inputs[0])).map { Int(String($0))! }, inputs[1])
-var stack: [Int] = []
+import Foundation
+
+let inputs = readLine()!.split(separator: " ").map { String($0) }
+let num = Array(inputs[0])
+let m = Int(inputs[1])!
+var stack: [Character] = []
 var deletions = m
 
 for x in num {
@@ -1869,6 +1872,7 @@ if deletions > 0 {
 }
 
 print(stack.map { String($0) }.joined())
+
 ````
 
 #
