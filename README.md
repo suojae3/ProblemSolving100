@@ -1206,8 +1206,6 @@ if check(board) {
 ▣ 풀이로직 <br/>
 5개를 보면 되기 때문에 0,1,2까지만 돌면 되는 부분 <br/>
 
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/14.png" width="400" height="400"><br/>
-
 ```swift
 import Foundation
 
