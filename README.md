@@ -1994,3 +1994,276 @@ while let last = stack.last {
 
 print(result)
 ```
+
+#
+
+### 35. 후위식 연산
+
+후위연산식이 주어지면 연산한 결과를 출력하는 프로그램을 작성하세요. <br/>
+만약 3*(5+2)-9 을 후위연산식으로 표현하면 352+*9- 로 표현되며 그 결과는 21입니다. <br/>
+
+▣ 입력설명 <br/>
+첫 줄에 후위연산식이 주어집니다. 연산식의 길이는 50을 넘지 않습니다. <br/>
+식은 1~9의 숫자와 +, -, *, /, (, ) 연산자로만 이루어진다. <br/>
+
+▣ 출력설명 <br/>
+연산한 결과를 출력합니다. <br/>
+
+▣ 입력예제 <br/>
+352+*9- <br/>
+
+▣ 출력예제 <br/>
+12 <br/>
+
+```Swift
+let expression = readLine()!
+var stack: [Int] = []
+
+for char in expression {
+    if let num = Int(String(char)) {
+        stack.append(num)
+    } else {
+        let n1 = stack.popLast()!
+        let n2 = stack.popLast()!
+        switch char {
+        case "+":
+            stack.append(n2 + n1)
+        case "-":
+            stack.append(n2 - n1)
+        case "*":
+            stack.append(n2 * n1)
+        case "/":
+            stack.append(n2 / n1)
+        default:
+            break
+        }
+    }
+}
+
+print(stack[0])
+```
+
+#
+
+### 36. 공주 구하기(큐 자료구조로 해결)
+
+정보 왕국의 이웃 나라 외동딸 공주가 숲속의 괴물에게 잡혀갔습니다. <br/>
+정보 왕국에는 왕자가 N명이 있는데 서로 공주를 구하러 가겠다고 합니다. 정보왕국의 왕은 다음과 같은 방법으로 공주를 구하러 갈 왕자를 결정하기로 했습니다. <br/>
+왕은 왕자들을 나이 순으로 1번부터 N번까지 차례로 번호를 매긴다. 그리고 1번 왕자부터 N 번 왕자까지 순서대로 시계 방향으로 돌아가며 동그랗게 앉게 한다. <br/> 
+그리고 1번 왕자부터 시 계방향으로 돌아가며 1부터 시작하여 번호를 외치게 한다.  <br/>
+한 왕자가 K(특정숫자)를 외치면 그 왕자는 공주를 구하러 가는데서 제외되고 원 밖으로 나오게 된다. 그리고 다음 왕자부터 다시 1부터 시작하여 번호를 외친다. <br/>
+이렇게 해서 마지막까지 남은 왕자가 공주를 구하러 갈 수 있다. <br/>
+
+예를 들어 총 8명의 왕자가 있고, 3을 외친 왕자가 제외된다고 하자. 처음에는 3번 왕자가 3 을 외쳐 제외된다.  <br/>
+이어 6, 1, 5, 2, 8, 4번 왕자가 차례대로 제외되고 마지막까지 남게 된 7 번 왕자에게 공주를 구하러갑니다. <br/>
+N과 K가 주어질 때 공주를 구하러 갈 왕자의 번호를 출력하는 프로그램을 작성하시오. <br/>
+
+▣ 입력설명 <br/>
+첫 줄에 자연수 N(5<=N<=1,000)과 K(2<=K<=9)가 주어진다. <br/>
+
+▣ 출력설명 <br/>
+첫 줄에 마지막 남은 왕자의 번호를 출력합니다. <br/>
+
+▣ 입력예제  <br/>
+83 <br/>
+
+▣ 출력예제 <br/>  
+7 <br/>
+
+```Swift
+import Foundation
+
+let inputs = readLine()!.split(separator: " ").map { Int($0)! }
+let (n, k) = (inputs[0], inputs[1])
+
+var dq = Array(1...n)
+
+while dq.count > 1 {
+    for _ in 1..<k {
+        let first = dq.removeFirst()
+        dq.append(first)
+    }
+    dq.removeFirst()
+}
+
+print(dq[0])
+
+```
+
+#
+
+### 37. 응급실 
+
+메디컬 병원 응급실에는 의사가 한 명밖에 없습니다. <br/>
+응급실은 환자가 도착한 순서대로 진료를 합니다. 하지만 위험도가 높은 환자는 빨리 응급조 치를 의사가 해야 합니다. <br/>
+이런 문제를 보완하기 위해 응급실은 다음과 같은 방법으로 환자의 진료순서를 정합니다. <br/>
+• 환자가 접수한 순서대로의 목록에서 제일 앞에 있는 환자목록을 꺼냅니다. <br/>
+• 나머지 대기 목록에서 꺼낸 환자 보다 위험도가 높은 환자가 존재하면 대기목록 제일 뒤로 <br/>
+다시 넣습니다. 그렇지 않으면 진료를 받습니다. <br/>
+현재 N명의 환자가 대기목록에 있습니다. <br/>
+N명의 대기목록 순서의 환자 위험도가 주어지면, 대기목록상의 M번째 환자는 몇 번째로 진료 를 받는지 출력하는 프로그램을 작성하세요. <br/>
+대기목록상의 M번째는 대기목록의 제일 처음 환자를 0번째로 간주하여 표현한 것입니다. <br/>
+
+▣ 입력설명 <br/>
+첫 줄에 자연수 N(5<=N<=100)과 M(0<=M<N) 주어집니다. <br/>
+두 번째 줄에 접수한 순서대로 환자의 위험도(50<=위험도<=100)가 주어집니다. <br/>
+위험도는 값이 높을 수록 더 위험하다는 뜻입니다. 같은 값의 위험도가 존재할 수 있습니다. <br/>
+
+▣ 출력설명 <br/>
+M번째 환자의 몇 번째로 진료받는지 출력하세요. <br/>
+
+▣ 입력예제  <br/>
+5 2 <br/>
+60 50 70 80 90 <br/>
+
+▣ 출력예제  <br/>
+3 <br/>
+
+▣ 입력예제 <br/>
+60 <br/>
+60 60 90 60 60 60 <br/>
+
+▣ 출력예제 <br/>
+5 <br/>
+
+
+```Swift
+import Foundation
+
+let inputs = readLine()!.split(separator: " ").map { Int($0)! }
+let (n, m) = (inputs[0], inputs[1])
+let risks = readLine()!.split(separator: " ").map { Int($0)! }
+
+var queue = Array(zip(0..<n, risks))
+var cnt = 0
+
+while !queue.isEmpty {
+    let current = queue.removeFirst()
+    
+    if queue.contains(where: { $0.1 > current.1 }) {
+        queue.append(current)
+    } else {
+        cnt += 1
+        if current.0 == m {
+            print(cnt)
+            break
+        }
+    }
+}
+
+
+```
+
+#
+
+### 38. 교육과정 설계 <br/>
+
+현수는 1년 과정의 수업계획을 짜야 합니다. <br/>
+수업중에는 필수과목이 있습니다. 이 필수과목은 반드시 이수해야 하며, 그 순서도 정해져 있 습니다. <br/>
+만약 총 과목이 A, B, C, D, E, F, G가 있고, 여기서 필수과목이 CBA로 주어지면 필수과목은 C, B, A과목이며 이 순서대로 꼭 수업계획을 짜야 합니다. <br/>
+여기서 순서란 B과목은 C과목을 이수한 후에 들어야 하고, A과목은 C와 B를 이수한 후에 들 어야 한다는 것입니다. <br/>
+현수가 C, B, D, A, G, E로 수업계획을 짜면 제대로 된 설계이지만 <br/>
+C, G, E, A, D, B 순서로 짰다면 잘 못 설계된 수업계획이 됩니다. <br/>
+수업계획은 그 순서대로 앞에 수업이 이수되면 다음 수업을 시작하다는 것으로 해석합니다. 수업계획서상의 각 과목은 무조건 이수된다고 가정합니다.<br/>
+필수과목순서가 주어지면 현수가 짠 N개의 수업설계가 잘된 것이면 “YES", 잘못된 것이면 ”NO“를 출력하는 프로그램을 작성하세요. <br/>
+
+▣ 입력설명 <br/>
+첫 줄에 한 줄에 필수과목의 순서가 주어집니다. 모든 과목은 영문 대문자입니다. <br/>
+두 번째 줄에 N(1<=N<=10)이 주어집니다. <br/>
+세 번 째 줄부터 현수가 짠 N개의 수업설계가 주어집니다.(수업설계의 길이는 30이하이다) 수업설계는 같은 과목을 여러 번 이수하도록 설계해도 됩니다. <br/>
+
+▣ 출력설명 <br/>
+수업설계가 잘된 것이면 “YES", 잘못된 것이면 ”NO“를 출력합니다. <br/>
+
+▣ 입력예제 <br/>
+CBA <br/>
+3 <br/>
+CBDAGE <br/>
+FGCDAB <br/>
+CTSBDEA <br/>
+
+▣ 출력예제 <br/>
+#1 YES <br/>
+#2 NO <br/>
+#3 YES <br/>
+
+```swift
+import Foundation
+
+let need = readLine()!
+let n = Int(readLine()!)!
+
+for i in 1...n {
+    let plan = readLine()!
+    var needQueue = Array(need)
+
+    for char in plan {
+        if let index = needQueue.firstIndex(of: Character(String(char))) {
+            if char == needQueue.first {
+                needQueue.removeFirst()
+            } else {
+                print("#\(i) NO")
+                break
+            }
+        }
+    }
+    
+    if needQueue.isEmpty {
+        print("#\(i) YES")
+    } else {
+        print("#\(i) NO")
+    }
+}
+```
+
+#
+
+### 39. 단어 찾기 <br/>
+
+현수는 영어로 시는 쓰는 것을 좋아합니다. <br/>
+현수는 시를 쓰기 전에 시에 쓰일 단어를 미리 노트에 적어둡니다. <br/>
+이번에는 N개의 단어를 노트에 적었는데 시에 쓰지 않은 단어가 하나 있다고 합니다. 여러분이 찾아 주세요. <br/>
+
+▣ 입력설명 <br/> 
+첫 번째 줄에 자연수 N(3<=N<=100)이 주어진다. <br/>
+두 번째 줄부터 노트에 미리 적어놓은 N개의 단어가 주어지고, 이어 바로 다음 줄부터 시에 쓰인 N-1개의 단어가 주어진다. <br/>
+
+▣ 출력설명 <br/>
+첫 번째 줄에 시에 쓰지 않은 한 개의 단어를 출력한다.<br/>
+
+▣ 입력예제 <br/>
+5 <br/>
+big <br/>
+good <br/>
+sky <br/>
+blue <br/>
+mouse <br/>
+sky <br/>
+good <br/>
+mouse <br/>
+big <br/>
+
+▣ 출력예제 <br/>
+blue <br/>
+
+```Swift
+let n = Int(readLine()!)!
+var wordsDict: [String: Int] = [:]
+
+for _ in 0..<n {
+    let word = readLine()!
+    wordsDict[word] = 1
+}
+
+for _ in 0..<n-1 {
+    let word = readLine()!
+    wordsDict[word] = 0
+}
+
+for (key, value) in wordsDict {
+    if value == 1 {
+        print(key)
+        break
+    }
+}
+```
