@@ -2372,10 +2372,6 @@ while true {
     default:
         heap.append(n)
     }
-
-    if n == -1 {
-        break
-    }
 }
 
 
