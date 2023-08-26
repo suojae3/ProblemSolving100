@@ -2354,19 +2354,30 @@ import Foundation
 
 var heap: [Int] = []
 
-while let input = readLine(), let n = Int(input), n != -1 {
+while true {
+    guard let input = readLine(), let n = Int(input) else { break }
+
     switch n {
+    case -1:
+        break
     case 0:
         if let minVal = heap.min() {
-            print(minVal)
-            heap.removeAll { $0 == minVal }
+            if let index = heap.firstIndex(of: minVal) {
+                heap.remove(at: index)
+                print(minVal)
+            }
         } else {
             print(-1)
         }
     default:
         heap.append(n)
     }
+
+    if n == -1 {
+        break
+    }
 }
+
 
 ```
 #
