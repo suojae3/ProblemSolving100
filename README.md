@@ -2267,3 +2267,182 @@ for (key, value) in wordsDict {
     }
 }
 ```
+
+#
+
+### 40. Anagram(아나그램 : 구글 인터뷰 문제)
+
+Anagram이란 두 문자열이 알파벳의 나열 순서를 다르지만 그 구성이 일치하면 두 단어는 아 나그램이라고 합니다. <br/>
+예를 들면 AbaAeCe 와 baeeACA 는 알파벳을 나열 순서는 다르지만 그 구성을 살펴보면 A(2), a(1), b(1), C(1), e(2)로 알파벳과 그 개수가 모두 일치합니다.  <br/>
+즉 어느 한 단어를 재 배열하면 상대편 단어가 될 수 있는 것을 아나그램이라 합니다.  <br/>
+길이가 같은 두 개의 단어가 주어지면 두 단어가 아나그램인지 판별하는 프로그램을 작성하세 요. 아나그램 판별시 대소문자가 구분됩니다.  <br/>
+
+▣ 입력설명  <br/>
+첫 줄에 첫 번째 단어가 입력되고, 두 번째 줄에 두 번째 단어가 입력됩니다. 단어의 길이는 100을 넘지 않습니다.  <br/>
+
+▣ 출력설명  <br/>
+두 단어가 아나그램이면 “YES"를 출력하고, 아니면 ”NO"를 출력합니다.  <br/>
+
+▣ 입력예제
+AbaAeCe baeeACA  <br/>
+
+▣ 출력예제  <br/>
+ YES  <br/>
+
+ ```Swift
+import Foundation
+
+let firstWord = readLine()!
+let secondWord = readLine()!
+
+var charCount: [Character: Int] = [:]
+
+for char in firstWord {
+    charCount[char, default: 0] += 1
+}
+
+for char in secondWord {
+    charCount[char, default: 0] -= 1
+}
+
+if charCount.values.allSatisfy({ $0 == 0 }) {
+    print("YES")
+} else {
+    print("NO")
+}
+```
+
+#
+
+### 41. 최소힙
+
+최소힙은 완전이진트리로 구현된 자료구조입니다. 그 구성은 부모 노드값이 왼쪽자식과 오른 쪽 자식노드의 값보다 작게 트리를 구성하는 것입니다.  <br/>
+그렇게 하면 트리의 루트(root)노드는 입력된 값들 중 가장 작은 값이 저장되어 있습니다. 예를 들어 5 3 2 1 4 6 7순으로 입력되 면 최소힙 트리는 아래와 같이 구성됩니다. <br/>
+최소힙 자료를 이용하여 다음과 같은 연산을 하는 프로그램을 작성하세요.  <br/>
+1) 자연수가 입력되면 최소힙에 입력한다. <br/>
+2) 숫자 0 이 입력되면 최소힙에서 최솟값을 꺼내어 출력한다. <br/>
+(출력할 자료가 없으면 -1를 출력한다.) <br/>
+3) -1이 입력되면 프로그램 종료한다.  <br/>
+
+▣ 입력설명 <br/>
+첫 번째 줄부터 숫자가 입력된다. 입력되는 숫자는 100,000개 이하이며 각 숫자의 크기는 정 수형 범위에 있다. <br/>
+
+▣ 출력설명 <br/>
+연산을 한 결과를 보여준다. <br/>
+
+▣ 입력예제 <br/>
+5 <br/>
+3 <br/>
+6  <br/>
+0 <br/>
+5 <br/>
+0 <br/>
+2 <br/>
+4 <br/> 
+0 <br/>
+-1 <br/>
+
+▣ 출력예제  <br/>
+3 <br/>
+5 <br/>
+2 <br/>
+
+```Swift
+import Foundation
+
+var heap: [Int] = []
+
+while true {
+    guard let input = readLine(), let n = Int(input) else { break }
+
+    switch n {
+    case -1:
+        break
+    case 0:
+        if let minVal = heap.min() {
+            // Remove the smallest value from the heap.
+            if let index = heap.firstIndex(of: minVal) {
+                heap.remove(at: index)
+                print(minVal)
+            }
+        } else {
+            print(-1)
+        }
+    default:
+        heap.append(n)
+    }
+
+    if n == -1 {
+        break
+    }
+}
+```
+#
+
+### 42. 최대 힙
+
+최대힙은 완전이진트리로 구현된 자료구조입니다.  <br/>
+그 구성은 부모 노드값이 왼쪽자식과 오른 쪽 자식노드의 값보다 크게 트리를 구성하는 것입니다.  <br/>
+그렇게 하면 트리의 루트(root)노드는 입력된 값들 중 가장 큰 값이 저장되어 있습니다.  <br/>
+예를 들어 5 3 2 1 4 6 7순으로 입력되면 최대힙 트리는 아래와 같이 구성됩니다. <br/>
+최대힙 자료를 이용하여 다음과 같은 연산을 하는 프로그램을 작성하세요.  <br/>
+1) 자연수가 입력되면 최대힙에 입력한다. <br/>
+2) 숫자 0 이 입력되면 최대힙에서 최댓값을 꺼내어 출력한다. <br/>
+(출력할 자료가 없으면 -1를 출력한다.) <br/>
+3) -1이 입력되면 프로그램 종료한다. <br/>
+   
+▣ 입력설명 <br/>
+첫 번째 줄부터 숫자가 입력된다. 입력되는 숫자는 100,000개 이하이며 각 숫자의 크기는 정 수형 범위에 있다. <br/>
+
+▣ 출력설명 <br/>
+연산을 한 결과를 보여준다. <br/>
+
+▣ 입력예제 <br/>
+5  <br/>
+3  <br/>
+6  <br/>
+0  <br/>
+5  <br/>
+0  <br/>
+2  <br/>
+4 <br/>
+0 <br/>
+-1 <br/>
+
+▣ 출력예제  <br/>
+6  <br/>
+5 <br/>
+5 <br/>
+
+```Swift
+import Foundation
+
+var heap: [Int] = []
+
+while true {
+    guard let input = readLine(), let n = Int(input) else { break }
+
+    switch n {
+    case -1:
+        break
+    case 0:
+        if let maxVal = heap.min() {
+            if let index = heap.firstIndex(of: maxVal) {
+                heap.remove(at: index)
+                print(-maxVal) // Invert the sign when printing
+            }
+        } else {
+            print(-1)
+        }
+    default:
+        heap.append(-n)
+    }
+
+    if n == -1 {
+        break
+    }
+}
+
+```
+
+ 
