@@ -2352,28 +2352,99 @@ if charCount.values.allSatisfy({ $0 == 0 }) {
 ```Swift
 import Foundation
 
-var heap: [Int] = []
-
-while true {
-    guard let input = readLine(), let n = Int(input) else { break }
-
-    switch n {
-    case -1:
-        break
-    case 0:
-        if let minVal = heap.min() {
-            if let index = heap.firstIndex(of: minVal) {
-                heap.remove(at: index)
-                print(minVal)
+// Heap structure definition
+struct Heap<T> {
+    var nodes: [T] = []
+    private var orderCriteria: (T, T) -> Bool
+    
+    init(sort: @escaping (T, T) -> Bool) {
+        self.orderCriteria = sort
+    }
+    
+    var isEmpty: Bool {
+        return nodes.isEmpty
+    }
+    
+    func peek() -> T? {
+        return nodes.first
+    }
+    
+    func leftChildIndex(ofParentAt index: Int) -> Int {
+        return 2 * index + 1
+    }
+    
+    func rightChildIndex(ofParentAt index: Int) -> Int {
+        return 2 * index + 2
+    }
+    
+    func parentIndex(ofChildAt index: Int) -> Int {
+        return (index - 1) / 2
+    }
+    
+    mutating func push(_ value: T) {
+        nodes.append(value)
+        siftUp(from: nodes.count - 1)
+    }
+    
+    mutating func pop() -> T? {
+        guard !isEmpty else { return nil }
+        
+        if nodes.count == 1 {
+            return nodes.removeLast()
+        } else {
+            let value = nodes.first
+            nodes[0] = nodes.removeLast()
+            siftDown(from: 0)
+            return value
+        }
+    }
+    
+    private mutating func siftUp(from index: Int) {
+        var child = index
+        var parent = parentIndex(ofChildAt: child)
+        while child > 0 && orderCriteria(nodes[child], nodes[parent]) {
+            nodes.swapAt(child, parent)
+            child = parent
+            parent = parentIndex(ofChildAt: child)
+        }
+    }
+    
+    private mutating func siftDown(from index: Int) {
+        var parent = index
+        while true {
+            let left = leftChildIndex(ofParentAt: parent)
+            let right = rightChildIndex(ofParentAt: parent)
+            var candidate = parent
+            
+            if left < count && orderCriteria(nodes[left], nodes[candidate]) {
+                candidate = left
             }
+            if right < count && orderCriteria(nodes[right], nodes[candidate]) {
+                candidate = right
+            }
+            if candidate == parent {
+                return
+            }
+            nodes.swapAt(parent, candidate)
+            parent = candidate
+        }
+    }
+}
+
+var heap = Heap<Int>(sort: <)  // Create a min-heap
+
+while let input = readLine(), let n = Int(input), n != -1 {
+    switch n {
+    case 0:
+        if let poppedValue = heap.pop() {
+            print(poppedValue)
         } else {
             print(-1)
         }
     default:
-        heap.append(n)
+        heap.push(n)
     }
 }
-
 
 ```
 #
@@ -2416,31 +2487,27 @@ while true {
 ```Swift
 import Foundation
 
-var heap: [Int] = []
+struct Heap<T> {
+    //... 위 문제 힙 코드 참고
+}
 
-while true {
-    guard let input = readLine(), let n = Int(input) else { break }
+var heap = Heap<Int>(sort: <)  // Use a min-heap and apply the inversion trick
 
+while let input = readLine(), let n = Int(input), n != -1 {
     switch n {
-    case -1:
-        break
     case 0:
-        if let maxVal = heap.min() {
-            if let index = heap.firstIndex(of: maxVal) {
-                heap.remove(at: index)
-                print(-maxVal) 
-            }
+        if let poppedValue = heap.pop() {
+            // Invert the value to get the original number
+            print(-poppedValue)
         } else {
             print(-1)
         }
     default:
-        heap.append(-n)
-    }
-
-    if n == -1 {
-        break
+        // Invert the number before pushing to the heap
+        heap.push(-n)
     }
 }
+
 
 ```
 
