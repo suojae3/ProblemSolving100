@@ -2432,7 +2432,7 @@ while true {
         if let maxVal = heap.min() {
             if let index = heap.firstIndex(of: maxVal) {
                 heap.remove(at: index)
-                print(-maxVal) // Invert the sign when printing
+                print(-maxVal) 
             }
         } else {
             print(-1)
