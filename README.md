@@ -2283,8 +2283,9 @@ Anagram이란 두 문자열이 알파벳의 나열 순서를 다르지만 그 �
 ▣ 출력설명  <br/>
 두 단어가 아나그램이면 “YES"를 출력하고, 아니면 ”NO"를 출력합니다.  <br/>
 
-▣ 입력예제
-AbaAeCe baeeACA  <br/>
+▣ 입력예제 <br/>
+AbaAeCe <br/> 
+baeeACA  <br/>
 
 ▣ 출력예제  <br/>
  YES  <br/>
