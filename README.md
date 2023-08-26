@@ -2416,10 +2416,10 @@ struct Heap<T> {
             let right = rightChildIndex(ofParentAt: parent)
             var candidate = parent
             
-            if left < count && orderCriteria(nodes[left], nodes[candidate]) {
+            if left < nodes.count && orderCriteria(nodes[left], nodes[candidate]) {
                 candidate = left
             }
-            if right < count && orderCriteria(nodes[right], nodes[candidate]) {
+            if right < nodes.count && orderCriteria(nodes[right], nodes[candidate]) {
                 candidate = right
             }
             if candidate == parent {
