@@ -2530,6 +2530,20 @@ while let input = readLine(), let n = Int(input), n != -1 {
 1011  <br/>
 
 ```Swift
+import Foundation
+
+func DFS(_ x: Int) {
+    if x == 0 {
+        return
+    } else {
+        DFS(x / 2)
+        print(x % 2, terminator: "")
+    }
+}
+
+if let n = Int(readLine()!) {
+    DFS(n)
+}
 ```
 
 #
@@ -2555,6 +2569,32 @@ while let input = readLine(), let n = Int(input), n != -1 {
 3 <br/>
 
 ```Swift
+import Foundation
+
+func DFS(_ v: Int) {
+    if v == n + 1 {
+        var subset = [Int]()
+        for i in 1...n {
+            if ch[i] == 1 {
+                subset.append(i)
+            }
+        }
+        if !subset.isEmpty {
+            print(subset.map(String.init).joined(separator: " "))
+        }
+    } else {
+        ch[v] = 1
+        DFS(v + 1)
+        ch[v] = 0
+        DFS(v + 1)
+    }
+}
+
+if let inputN = Int(readLine()!) {
+    let n = inputN
+    var ch = [Int](repeating: 0, count: n + 1)
+    DFS(1)
+}
 ```
 #
 
@@ -2580,7 +2620,30 @@ N개의 원소로 구성된 자연수 집합이 주어지면, 이 집합을 두 
 YES <br/>
 
 ```Swift
+import Foundation
 
+func DFS(_ L: Int, _ sum: Int) {
+    if sum > total / 2 {
+        return
+    }
+    if L == n {
+        if sum == (total - sum) {
+            print("YES")
+            exit(0)
+        }
+    } else {
+        DFS(L + 1, sum + a[L])
+        DFS(L + 1, sum)
+    }
+}
+
+if let inputN = Int(readLine()!) {
+    let n = inputN
+    let a = readLine()!.split(separator: " ").map { Int($0)! }
+    let total = a.reduce(0, +)
+    DFS(0, 0)
+    print("NO")
+}
 ```
 
 #
@@ -2609,22 +2672,93 @@ N마리의 바둑이와 각 바둑이의 무게 W가 주어지면, 철수가 트
 242 <br/>
 
 ```Swift
+import Foundation
 
+var result = Int.min
+
+func DFS(_ L: Int, _ sum: Int, _ tsum: Int) {
+    if sum + (total - tsum) < result {
+        return
+    }
+    if sum > c {
+        return
+    }
+    if L == n {
+        if sum > result {
+            result = sum
+        }
+    } else {
+        DFS(L + 1, sum + a[L], tsum + a[L])
+        DFS(L + 1, sum, tsum + a[L])
+    }
+}
+
+if let input = readLine()?.split(separator: " ").map({ Int($0)! }) {
+    let c = input[0]
+    let n = input[1]
+    var a = [Int](repeating: 0, count: n)
+    for i in 0..<n {
+        if let weight = Int(readLine()!) {
+            a[i] = weight
+        }
+    }
+    let total = a.reduce(0, +)
+    DFS(0, 0, 0)
+    print(result)
+}
 ```
 
 # 
 
 ### 47. 이진트리 순회 (깊이 우선탐색)
 
-아래 그림과 같은 이진트리를 전위순회와 후위순회를 연습해보세요.
+아래 그림과 같은 이진트리를 전위순회와 후위순회를 연습해보세요. <br/>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="image/19.png" width="400" height="200"><br/>
 
-전위순회 출력 : 1 2 4 5 3 6 7 
-중위순회 출력 : 4 2 5 1 6 3 7 
-후위순회 출력 : 4 5 2 6 7 3 1
+전위순회 출력 : 1 2 4 5 3 6 7 <br/>
+중위순회 출력 : 4 2 5 1 6 3 7 <br/>
+후위순회 출력 : 4 5 2 6 7 3 1 <br/>
 
 ```Swift
+import Foundation
+
+func preOrder(_ v: Int) {
+    if v > 7 {
+        return
+    } else {
+        print(v, terminator: " ")
+        preOrder(v * 2)
+        preOrder(v * 2 + 1)
+    }
+}
+
+func inOrder(_ v: Int) {
+    if v > 7 {
+        return
+    } else {
+        inOrder(v * 2)
+        print(v, terminator: " ")
+        inOrder(v * 2 + 1)
+    }
+}
+
+func postOrder(_ v: Int) {
+    if v > 7 {
+        return
+    } else {
+        postOrder(v * 2)
+        postOrder(v * 2 + 1)
+        print(v, terminator: " ")
+    }
+}
+
+print("Pre-order (Potential rotation) output: ", terminator: "")
+preOrder(1)
+print("\nIn-order (Median circuit) output: ", terminator: "")
+inOrder(1)
+print("\nPost-order (Rear turn) output: ", terminator: "")
+postOrder(1)
 
 ```
  
